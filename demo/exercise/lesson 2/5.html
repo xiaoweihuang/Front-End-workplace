@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>动态改变div样式</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body,h1{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		.wrap{
+			width: 200px;
+			margin: 0 auto;
+		}
+		.wrap label{
+			display: block;
+			margin: 20px 0;
+		}
+		.target{
+			padding: 5px;
+			width: 180px;
+			height: 180px;
+			color: #fff;
+			background: blue;
+			margin-top: 20px;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.ok').click(function(){
+				$('.target').css($('.attr').val(),$('.value').val());
+			})
+			$('.reset').click(function(){
+				$('.target').removeAttr('style');
+			})
+		})
+	</script>
+
+</head>    
+<body>
+	<div class="wrap">
+		<label><span>属性名：</span><input class="attr" type="text" value="background"></label>
+		<label><span>属性名：</span><input class="value" type="text" value="red"></label>
+		<div class="btn-wrap"><input class="ok" type="button" value="确定"><input class="reset" type="button" value="重置"></div>
+		<div class="target">在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果。</div>
+	</div>
+</body>
+</html>

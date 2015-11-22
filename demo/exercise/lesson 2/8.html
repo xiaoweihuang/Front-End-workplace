@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>简易年历</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body,h3,ul,li,p{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		li{
+			list-style: none;
+		}
+		.wrap{
+			width: 248px;
+			margin: 10px auto;
+			padding: 0 0 10px 10px;
+			background: #ccc;
+		}
+		.wrap .list:after{
+			content: "";
+			height: 0;
+			display: block;
+			clear: both;
+		}
+		.wrap .list li{
+			width: 40px;
+			height: 40px;
+			margin: 10px 10px 0 0;
+			padding: 5px;
+			background: #3399FF;
+			border: 1px solid #3399FF;
+			float: left;
+			text-align: center;
+			color: #fff;
+		}
+		.active{
+			background: #fff !important;
+			color: #3399FF !important;
+		}
+		.msg{
+			margin: 10px 10px 0 0;
+			padding: 5px;
+			background: #99CCFF;
+			color: #000;
+			border: 1px solid #fff;
+			line-height: 25px;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var aFestival = [
+				"元旦：1月1日至3日放假三天。",
+				"春节：2月2日至8日放假7天。",
+				"妇女节：3月8日妇女节，与我无关。",
+				"清明节：4月3日至5日放假3天",
+				"劳动节：4月30日至5月2日放假3天。",
+				"端午节：6月4日至6日放假3天。",
+				"小暑：7月7日小暑。不放假。",
+				"七夕节：8月6日七夕节。不放假。",
+				"中秋节：9月10日至12日放假3天。",
+				"国庆节：10月1日至7日放假7天。",
+				"立冬：11月8日立冬。不放假。",
+				"艾滋病日:12月1日<br />废除奴隶制国际日:12月2日。"
+			];
+			$('.month').html('1 月节日');
+			$('.festival').html('元旦：1月1日至3日放假三天。');
+			var aLi = $('.list li');
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].index = i;
+			};
+			aLi.hover(function(){
+				$(this).addClass('active');
+				$('.month').html(this.index + " 月节日");
+				$('.festival').html(aFestival[this.index]);
+			},function(){
+				$(this).removeClass('active');
+			})
+		})
+	</script>
+
+</head>    
+<body>
+	<div class="wrap">
+		<ul class="list">
+			<li>
+				<strong>1</strong><br/>
+				JAN
+			</li>
+			<li>
+				<strong>2</strong><br/>
+				FEB
+			</li>
+			<li>
+				<strong>3</strong><br/>
+				MAR
+			</li>
+			<li>
+				<strong>4</strong><br/>
+				APR
+			</li>
+			<li>
+				<strong>5</strong><br/>
+				MAY
+			</li>
+			<li>
+				<strong>6</strong><br/>
+				JUN
+			</li>
+			<li>
+				<strong>7</strong><br/>
+				JUL
+			</li>
+			<li>
+				<strong>8</strong><br/>
+				AUG
+			</li>
+			<li>
+				<strong>9</strong><br/>
+				SEP
+			</li>
+			<li>
+				<strong>10</strong><br/>
+				OTB
+			</li>
+			<li>
+				<strong>11</strong><br/>
+				NOV
+			</li>
+			<li>
+				<strong>12</strong><br/>
+				DEC
+			</li>
+		</ul>
+		<div class="msg">
+			<h3 class="month"></h3>
+			<p class="festival"></p>
+		</div>
+	</div>
+</body>
+</html>

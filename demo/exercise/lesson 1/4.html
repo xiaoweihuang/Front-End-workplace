@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>选择器的使用</title>
+	<style type="text/css">
+		.wrap{
+			width: 360px;
+			height: 400px;
+			margin: 0 auto;
+		}
+		.wrap .aDiv div{
+			width: 100px;
+			height: 100px;
+			float: left;
+			margin-right: 20px;
+			background: black;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('input[type=button]').click(function(){
+				$('.aDiv div').css('background','red');
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<p><input type="button" value="点击将Div变成红色"></p>
+		<div class="aDiv">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+</body>
+</html>

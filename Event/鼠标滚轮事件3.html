@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>鼠标滚轮事件3</title>
+		<style>
+			#div1{
+				width: 300px;
+				height: 300px;
+				background: greenyellow;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				fAddEvent(oDiv,'DOMMouseScroll',fscroll);
+				fAddEvent(oDiv,'mousewheel',fscroll);
+				function fscroll(ev){
+					var ev = ev||window.event;
+					bDown = true;
+					if(ev.wheelDelta){
+						if(ev.wheelDelta<0){
+							bDown = true;
+						}else{
+							bDown = false;
+						}
+					}else{
+						if(ev.detail>0){
+							bDown = true;
+						}else{
+							bDown = false;
+						}
+					}
+					alert(bDown);
+				}
+			}
+			
+			function fAddEvent(obj,eventtype,fn){
+				if(obj.attachEvent){
+					obj.attachEvent('on'+eventtype,fn);
+				}else{
+					obj.addEventListener(eventtype,fn,false);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>

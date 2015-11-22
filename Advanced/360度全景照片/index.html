@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>360度全景照片</title>
+		<style>
+			body{
+				padding-top: 100px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oImg = document.getElementById('img1');
+				var aImg=document.getElementsByTagName('img');
+				var lastImg = oImg;
+				var n = 0;
+				var lastX = 0;
+				var iSpeed = 0;
+				var timer = null;
+				
+				for(var i=1;i<77;i++){
+					(function(oNewImg){
+						oImg = new Image();
+						oImg.onload = function(){
+							oNewImg.src = this.src;
+						}
+						oImg.src = "img/miaov ("+ i +").jpg";
+						oNewImg.style.display = 'none';
+						document.body.appendChild(oNewImg);	
+					})(document.createElement('img'));
+				}
+				
+				document.onmousedown = function(ev){
+					clearInterval(timer);
+					var ev = ev||window.event;
+					var disX = ev.clientX - n;
+					document.onmousemove = function(ev){
+						var ev = ev||window.event;
+						n = ev.clientX - disX;
+						move();
+						iSpeed = n - lastX;
+						lastX = n;
+						return false;
+					}
+					document.onmouseup = function(){
+						document.onmousemove = null;
+						document.onmousemove = null;
+						timer = setInterval(function(){
+							n = n + iSpeed;
+							move();
+								
+						},30);
+					}
+					
+					function move(){
+						if(iSpeed>0){
+								iSpeed--;
+							}else{
+								iSpeed++;
+							}
+							
+							if(iSpeed==0){
+								clearInterval(timer);
+							}
+							
+							l = parseInt(-n/10);
+							if(l>0){
+								l = l%77 ;
+							}else{
+								l = l-Math.floor(l/77)*77 ;
+							}
+							
+							if(lastImg != aImg[l]){
+								lastImg.style.display = 'none';
+								aImg[l].style.display = 'block';
+								lastImg = aImg[l];
+							}
+							console.log(l,iSpeed);
+					}
+					
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<img id="img1" src = "img/miaov (0).jpg" />
+	</body>
+</html>

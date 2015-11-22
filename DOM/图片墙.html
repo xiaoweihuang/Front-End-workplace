@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片墙</title>
+		<script src="js/mov.js"></script>
+		<style>
+			body,ul,li{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				position: relative;
+				margin: 30px auto;
+				width: 600px;
+				list-style: none;
+			}
+			li{
+				float: left;
+				width: 180px;
+				height: 180px;
+				margin: 10px;
+			}
+			.active{
+				box-shadow: 5px 5px 10px black;
+			}
+			li img{
+				width: 180px;
+				height: 180px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oUl = document.getElementById('wrap');
+				var aLi = oUl.getElementsByTagName('li');
+				var aPosition = {};
+				var minZindex = 2;
+				for(var i=0; i<aLi.length;i++){
+					aPosition[i] = {left:aLi[i].offsetLeft,top:aLi[i].offsetTop};
+				}
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.position = "absolute";
+					aLi[i].style.left = aPosition[i].left + "px";
+					aLi[i].style.top = aPosition[i].top + "px";
+					aLi[i].style.margin = 0;
+					aLi[i].index = i;
+				}
+				
+				for(var i=0;i<aLi.length;i++){
+					drag(aLi[i]);
+				}
+				
+				function drag(obj){
+					obj.onmousedown = function(ev){
+						var ev = ev || window.event;
+						var disX = ev.clientX - obj.offsetLeft;
+						var disY = ev.clientY - obj.offsetTop;
+						obj.style.zIndex = minZindex++;
+						document.onmousemove = function (ev){
+							var ev = ev || window.event;
+							obj.style.left = ev.clientX - disX + "px";
+							obj.style.top = ev.clientY - disY + "px";
+							
+							for(var i=0;i<aLi.length;i++){
+								aLi[i].className = "";
+							}
+							
+							if(getTarget(obj)){
+								getTarget(obj).className = "active";
+							}
+							
+						}
+						document.onmouseup = function (){
+							document.onmousemove=null;
+							document.onmouseup=null;
+							if(getTarget(obj)){
+								getTarget(obj).className = "";
+								getTarget(obj).style.zIndex = minZindex++;
+								obj.style.zIndex = minZindex++;
+								startMove(obj,aPosition[getTarget(obj).index]);	
+								startMove(getTarget(obj),aPosition[obj.index]);	
+								var min = obj.index;
+								obj.index = getTarget(obj).index;
+								getTarget(obj).index = min;
+								
+							}else{
+								startMove(obj,aPosition[obj.index]);	
+							}
+							
+						}
+						return false;
+					}
+				}
+				
+				function check(obj1,obj2){
+					var l1 = obj1.offsetLeft;
+					var r1 = obj1.offsetLeft + obj1.offsetWidth;
+					var t1 = obj1.offsetTop;
+					var b1 = obj1.offsetTop + obj1.offsetHeight;
+					
+					var l2 = obj2.offsetLeft;
+					var r2 = obj2.offsetLeft + obj2.offsetWidth;
+					var t2 = obj2.offsetTop;
+					var b2 = obj2.offsetTop + obj2.offsetHeight;
+					
+					if(r2<l1||b2<t1||l2>r1||t2>b1){
+						return false;
+					}else{
+						return true;
+					}
+					
+				}
+				
+				function getDis(obj1,obj2){
+					var disX = obj1.offsetLeft-obj2.offsetLeft;
+					var disY = obj1.offsetTop-obj2.offsetTop;
+					return Math.sqrt(disX*disX+disY*disY);
+				}
+				
+				function getTarget(obj){
+					var targetDis = 1000000;//技巧：把这个值当作起始的最小距离
+					var targetIndex = -1;
+					for(var i=0;i<aLi.length;i++){
+							if(aLi[i] == obj)continue;
+							if(check(aLi[i],obj)){
+								var dis = getDis(aLi[i],obj);
+								if(targetDis>dis){
+									targetDis = dis;
+									targetIndex = i;
+								}
+							}
+					}
+					if(targetIndex == -1){//表示没有与其他物体碰撞上
+						return null;
+					}else{
+						return aLi[targetIndex];
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<ul id="wrap">
+			<li><img src="img/imgswall/1.jpg"/></li>
+			<li><img src="img/imgswall/2.jpg"/></li>
+			<li><img src="img/imgswall/3.jpg"/></li>
+			<li><img src="img/imgswall/4.jpg"/></li>
+			<li><img src="img/imgswall/5.jpg"/></li>
+			<li><img src="img/imgswall/6.jpg"/></li>
+			<li><img src="img/imgswall/7.jpg"/></li>
+			<li><img src="img/imgswall/8.jpg"/></li>
+			<li><img src="img/imgswall/9.jpg"/></li>
+		</ul>
+	</body>
+</html>

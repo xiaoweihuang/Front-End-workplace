@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>网页时钟</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 24px;
+		}
+		.wrap{
+			width: 400px;
+			height: 50px;
+			margin: 10px auto;
+			background: #555;
+			color: #fff;
+			text-align: center;
+			padding: 25px 0;
+		}
+		.wrap span{
+			display: inline-block;
+			width: 50px;
+			line-height: 50px;
+			text-align: center;
+			background: #fff;
+			color: #333;
+			font-size: 18px;
+			margin: 0 10px;
+			padding: 0 10px;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			setTime();
+			function setTime(){
+				var oDate = new Date();
+				var aDate = [oDate.getHours(),oDate.getMinutes(),oDate.getSeconds()];
+				$('.wrap .hour').html(format(aDate[0]));
+				$('.wrap .min').html(format(aDate[1]));
+				$('.wrap .second').html(format(aDate[2]));
+			}
+			function format(a)
+			{
+				return a.toString().replace(/^(\d)$/, "0$1")	
+			}
+			setInterval(setTime,1000);
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<span class="hour"></span>时
+		<span class="min"></span>分
+		<span class="second"></span>秒
+	</div>
+</body>
+</html>

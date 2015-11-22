@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>碰撞运动+拖拽（有重力）</title>
+		<style>
+			*{
+				margin:0;
+				padding: 0;
+			}
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			var speedX = 5;
+			var speedY = 0;
+			var lastX = 0;
+			var lastY = 0;
+			var timer = null;
+			function startMove(){
+					clearInterval(timer);
+					timer = setInterval(function(){
+						var oDiv= document.getElementById('div1');
+						speedY += 3;
+						var offsetL = oDiv.offsetLeft+speedX ;
+						var offsetT = oDiv.offsetTop+speedY;
+						
+						if( offsetT >= document.documentElement.clientHeight - oDiv.offsetHeight){
+							speedY = -0.9*speedY;
+							speedX = 0.8*speedX;
+							offsetT= document.documentElement.clientHeight - oDiv.offsetHeight;
+						}
+						
+						if( offsetT <= 0){
+							speedY = -0.8*speedY;
+							offsetT= 0
+						}
+						
+						if( offsetL >= document.documentElement.clientWidth - oDiv.offsetWidth){
+							speedX = -0.8*speedX;
+							offsetL= document.documentElement.clientWidth - oDiv.offsetWidth;
+						}
+						
+						if( offsetL <= 0 ){
+							speedX = -0.8*speedX;
+							offsetL= 0
+						}
+						
+						
+						if(Math.abs(speedX)<1 ){
+							speedX = 0;
+						}
+						if(Math.abs(speedY)<1){
+							speedY = 0;
+						}
+						
+						if(speedX == 0 && speedY == 0 && offsetT == document.documentElement.clientHeight - oDiv.offsetHeight ){
+							clearInterval(timer);
+						}
+						
+						oDiv.style.left = offsetL + 'px';
+						oDiv.style.top = offsetT + 'px';
+					
+					
+				},30);	
+			}
+			
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				oDiv.onmousedown = function(ev){
+					var ev = ev || event;
+					var disX = ev.clientX - oDiv.offsetLeft;
+					var disY = ev.clientY - oDiv.offsetTop;
+					
+					document.onmousemove = function(ev){
+						var ev = ev || event;
+						var l = ev.clientX - disX;
+						var t = ev.clientY - disY;
+
+						oDiv.style.left = l + 'px';
+						oDiv.style.top = t + 'px';	
+						
+						speedX = l-lastX ;//松开鼠标时的瞬间速度
+						speedY = t-lastY;//松开鼠标时的瞬间速度
+						
+						lastX = l;
+						lastY = t;
+					}
+					
+					document.onmouseup = function(){
+						document.onmousemove = null;
+						document.onmouseup = null;
+						startMove();
+					}
+					
+					clearInterval(timer);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		
+		<div id="div1"></div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>豆瓣电影</title>
+		<style>
+			dl, dt, dd{
+				margin: 10px;
+				padding: 0;
+			}
+			.wrap{
+				width: 500px;
+				margin: 10px auto;
+			}
+			dl{
+				width:498px;
+				border:1px dashed skyblue;
+			}
+			dl:after{
+				content: "";
+				display: block;
+				clear: both;
+				height: 0;
+			}
+			dt{
+				clear: both;
+			}
+			dd{
+				float: left;
+			}
+			img{
+				width: 250px;
+				height: 350px;
+			}
+		</style>
+		<script>
+			function fn1(data){
+				console.log(data);
+				var oMsg = document.getElementById('msg');
+				var content = document.getElementById('content');
+				oMsg.innerHTML = data.title + " : 共" + data.total + "条。当搜索结果大于20条时，默认只显示前20条。";
+				if(data.total != 0){
+					var html = '';
+					var j = 0;
+					if(data.total>20){
+						j = 20;
+					}else{
+						j = data.total;
+					}
+					for(var i=0;i<j;i++){
+						html += "<dl><dt>"+(i+1)+ " 【" +data.subjects[i].title+"】</dt><dd><img src="+data.subjects[i].images.large 
+						+" /></dd><dd>电影类型："+ data.subjects[i].genres +"</dd><dd>年份："+ data.subjects[i].year +"</dd></dl>"
+					}
+					content.innerHTML = html;
+				}else{
+					content.innerHTML = '';
+				}
+				
+				
+				
+			}
+			window.onload = function(){
+				var oQ = document.getElementById('q');
+				var oBtn = document.getElementById('button1');
+				var oMsg = document.getElementById('msg');
+				oBtn.onclick= function(){
+					if(oQ.value != ''){
+						var oScript = document.createElement('script');
+						oScript.src = 'https://api.douban.com/v2/movie/search?count=100&q='+oQ.value+'&callback=fn1';
+						document.body.appendChild(oScript);	
+					}	
+				}
+				
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+			<input id="q" type="text" />
+			<input id="button1" type="button" value="搜索" />
+			<p id="msg"></p>
+			<div id="content"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>弹性运动</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: goldenrod;
+				position: absolute;
+				left: 0;
+			}
+			span{
+				width: 1px;
+				height: 300px;
+				background: red;
+				position: absolute;
+				left: 300px;
+				top: 0;
+			}
+		</style>
+		<script>
+			function startMove(object,target){
+				clearInterval(object.timer);
+				object.timer = setInterval(function(){
+					speed = speed + (target-object.offsetLeft)/8;
+					speed *= 0.8;
+					if(Math.abs(speed) <1 && Math.abs(target-object.offsetLeft) <1 ){
+						clearInterval(object.timer);
+					}else{
+						object.style.left = object.offsetLeft + speed + 'px';
+					}	
+				},30)
+			}
+			var speed = 0;
+			var left = 0;
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				oDiv.onmouseover = function(){
+					startMove(this,300);
+				}
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div id="div1"></div>
+		<span></span>
+	</body>
+</html>

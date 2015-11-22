@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>碰撞运动（有重力）</title>
+		<style>
+			*{
+				margin:0;
+				padding: 0;
+			}
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			var speedX = 50;
+			var speedY = 40;
+			function startMove(){
+					setInterval(function(){
+						var oDiv= document.getElementById('div1');
+						speedY += 3;
+						var offsetL = oDiv.offsetLeft+speedX ;
+						var offsetT = oDiv.offsetTop+speedY;
+						
+						if( offsetT >= document.documentElement.clientHeight - oDiv.offsetHeight){
+							speedY = -0.8*speedY;
+							speedX = 0.8*speedX;
+							offsetT= document.documentElement.clientHeight - oDiv.offsetHeight
+						}
+						
+						if( offsetT <= 0){
+							speedY = -0.8*speedY;
+							offsetT= 0
+						}
+						
+						if( offsetL >= document.documentElement.clientWidth - oDiv.offsetWidth){
+							speedX = -0.8*speedX;
+							offsetL= document.documentElement.clientWidth - oDiv.offsetWidth
+						}
+						
+						if( offsetL <= 0 ){
+							speedX = -0.8*speedX;
+							offsetL= 0
+						}
+						
+						
+						if(Math.abs(speedX)<1){
+							speedX = 0;
+						}
+						if(Math.abs(speedY)<1){
+							speedY = 0;
+						}
+						
+						oDiv.style.left = offsetL + 'px';
+	
+						oDiv.style.top = offsetT + 'px';
+					
+					
+				},30);	
+			}
+			
+			window.onload = function(){
+					var oBtn = document.getElementById('button1');
+					oBtn.onclick = function(){
+						startMove();
+					}
+				}
+		</script>
+	</head>
+	<body>
+		<input id="button1" type="button" value="开始运动" />
+		<div id="div1"></div>
+	</body>
+</html>

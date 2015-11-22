@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>任意属性值变化</title>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background: greenyellow;
+				margin-bottom: 20px;
+				border: 1px solid red;
+			}
+		</style>
+		<script>
+			function startMove(object,attr,target){
+				clearInterval(object.timer);
+				object.timer = setInterval(function(){
+					var currentstyle = parseInt(getStyle(object,attr));
+					var speed = (target - currentstyle)/5;
+					speed>0? speed = Math.ceil(speed) : speed = Math.floor(speed);		
+					if(currentstyle == target){
+						clearInterval(object.timer);
+					}else{
+						object.style[attr] = currentstyle + speed + 'px';
+					}		
+				},30)
+			}		
+			function getStyle(object,attr){
+				return object.currentStyle?object.currentStyle[attr] : getComputedStyle(object,false)[attr];
+			}	
+			window.onload = function(){
+				var aDiv = document.getElementsByTagName('div');
+				for(var i=0 ; i < aDiv.length ; i++){
+					aDiv[i].timer = null;
+				}
+				
+				aDiv[0].onmouseover = function(){
+						startMove(this,'width',300);
+				}
+					
+				aDiv[1].onmouseover = function(){
+						startMove(this,'height',300);
+				}
+				aDiv[2].onmouseover = function(){
+						startMove(this,'fontSize',50);
+				}
+			}
+			
+		</script>
+		
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div>Hello</div>
+	</body>
+</html>

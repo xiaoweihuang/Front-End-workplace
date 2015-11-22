@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>多物体同时运动</title>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background: green;
+				margin-bottom: 20px;
+				filter: alpha(opacity:30);
+				opacity: 0.3;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var aDiv = document.getElementsByTagName('div');
+				
+				for(var i=0;i<aDiv.length;i++){
+					
+					aDiv[i].timer = null;
+					aDiv[i].alpha = 30;
+					
+					aDiv[i].onmouseover = function(){
+						startMove(this,100);
+					}
+					
+					aDiv[i].onmouseout = function(){
+						startMove(this,30);
+					}
+				}
+				
+			}
+			
+/*			var alpha = 30;//这个属性不能共用，共用的话在各个div之间快速切换会闪*/
+			
+			function startMove(object,target){
+				clearInterval(object.timer);
+				object.timer = setInterval(function(){
+					var speed = (target - object.alpha)/8;
+					if( speed > 0){
+						speed = Math.ceil(speed);
+					}else{
+						speed = Math.floor(speed);
+					}
+					
+					if(object.alpha == target){
+						clearInterval(object.timer);
+					}else{
+						object.alpha += speed;
+						object.style.opacity = object.alpha/100;
+						object.style.filter = 'alpha(opacity:'+ object.alpha +')';
+						
+					}
+				},30)
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<div id="div2"></div>
+		<div id="div3"></div>
+	</body>
+</html>

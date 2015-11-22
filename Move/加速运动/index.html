@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>加速运动</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: blue;
+				position: absolute;
+				border: 1px solid salmon;
+			}
+		</style>
+		<script>
+			function startMove(object,speed){
+				clearInterval(object.timer);
+				object.timer=setInterval(function(){
+					speed++;
+					object.style.left = object.offsetLeft + speed + 'px';
+				},30)
+			}
+			
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				/*speed = 0;*/
+				oDiv.onmouseover = function(){
+					startMove(this,0);
+				}
+			}
+			
+			
+			
+		</script>
+		
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>
+
+
+
+
+
+
+
+

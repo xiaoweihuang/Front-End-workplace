@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>鼠标移入移出事件</title>
+	<style type="text/css">
+		.wrap{
+			width: 150px;
+			height: 150px;
+			padding:10px;
+			margin: 0 auto;
+			color: #fff;
+			background: black;
+			font-size: 12px;
+			line-height: 18px;
+			border: 10px solid #000;
+		}
+		.active{
+			background: #fff;
+			width: 150px;
+			height: 150px;
+			padding:10px;
+			margin: 0 auto;
+			color: red;
+			font-size: 12px;
+			line-height: 18px;
+			border: 10px solid red;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.wrap').hover(function(){
+				$(this).removeClass().addClass('active');
+			},function(){
+				$(this).removeClass().addClass('wrap');
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		鼠标移入时改变样式，鼠标移出时恢复样式。
+	</div>
+</body>
+</html>

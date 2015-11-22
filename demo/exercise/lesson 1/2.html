@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>网页换肤</title>
+	<style type="text/css">
+		body，ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		.btn:after{
+			content: "";
+			height: 0;
+			display: block;
+			clear: both;
+		}
+		.btn .red{
+			background: red;
+			border-color: red;
+		}
+		.btn .green{
+			background: green;
+			border-color: green; 
+		}
+		.btn .blue{
+			background: blue;
+			border-color: blue;
+		}
+		.btn li{
+			float: left;
+			margin-right: 10px;
+			width: 16px;
+			height: 16px;
+			text-indent: -999px;
+			border: 4px solid;
+			cursor: pointer;
+		}
+		.nav{
+			background: yellow;
+			height: 50px;
+		}
+		.nav:after{
+			content: "";
+			height: 0;
+			display: block;
+			clear: both;
+		}
+		.nav li{
+			float: left;
+			width: 50px;
+			line-height: 50px;
+		}
+		.active{
+			background: #fff !important;
+			
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('body').css('background', '#FFDDDD');
+			$('.red').addClass('active');
+			var aLi = $('.btn li');
+			var colors = ['#FFDDDD','#A3C5A8','#CCCCCC'];
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].index = i;
+			};
+			$('.btn li').click(function(){
+				$('.btn li').removeClass('active');
+				$(this).addClass('active');
+				$('body').css('background',colors[this.index]);
+			})
+
+
+		})
+	</script>
+</head>
+<body>
+	<ul class="btn">
+		<li class="red">红色</li>
+		<li class="green">绿色</li>
+		<li class="blue">蓝色</li>
+	</ul>
+	<ul class="nav">
+		<li><a href="#">新闻</a></li>
+		<li><a href="#">娱乐</a></li>
+		<li><a href="#">体育</a></li>
+		<li><a href="#">电影</a></li>
+		<li><a href="#">音乐</a></li>
+		<li><a href="#">旅行</a></li>
+	</ul>
+</body>
+</html>

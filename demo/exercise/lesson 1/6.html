@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>鼠标移入移出事件</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		.wrap{
+			width: 200px;
+			margin: 10px auto;
+		}
+		.checkbox{
+			margin-right: 5px;
+		}
+		.tip{
+			margin-top: 5px;
+			padding: 5px;
+			border: 1px solid #f90;
+			background: #ffefa4;
+		}
+		.hidden{
+			display: none
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('label').hover(function(){$('.tip').removeClass('hidden')},function(){$('.tip').addClass('hidden')});
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<label>
+			<input class="checkbox" type="checkbox">两周内自动登录
+		</label>
+		<div class="tip hidden">为了您的信息安全，请不要在网吧或公用电脑上使用此功能！</div>
+	</div>
+</body>
+</html>

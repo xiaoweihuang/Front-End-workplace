@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>新浪微博首页</title>
+		<script src="../js/move6.js"></script>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+				
+			}
+			#wrap{
+				width: 500px;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			#textarea1{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width:500px;
+				height: 150px;
+				resize: none;
+				padding: 8px;
+			}
+			#button1{
+				width: 60px;
+				height: 30px;
+				position: absolute;
+				left: 460px;
+				top: 170px;
+			}
+			#ul{
+				width: 520px;
+				height: 400px;
+				font-size: 14px;
+				overflow:  auto;
+				soverflow: hidden;
+				position: absolute;
+				left: 0;
+				top: 210px;
+				border: 1px solid palegreen;
+			}
+			
+			#ul li{
+				border-bottom: 1px dotted skyblue;
+				padding-top: 2px;
+				overflow: hidden;
+				opacity:0;
+				filter: alpha(opacity:0);
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oWrap = document.getElementById('wrap');
+				var oTextarea = document.getElementById('textarea1');
+				//var content = oTextarea.value;
+				var oButton1 = document.getElementById('button1');
+				var oUl = document.getElementById('ul');
+				var aLi = oUl.getElementsByTagName('li');
+				oButton1.onclick = function(){
+					if(oTextarea.value=="" || oTextarea.value== null){
+						alert( '请输入内容!!');
+					}else{
+						var newNode = document.createElement('li');
+						newNode.innerHTML = oTextarea.value;
+						if(aLi.length){
+							oUl.insertBefore(newNode, aLi[0]);
+						}else{
+							oUl.appendChild(newNode);
+						}
+						oTextarea.value = '';
+						var iHeight = newNode.offsetHeight;
+						newNode.style.height = 0;
+						startMove(newNode,{height:iHeight,opacity:100});
+					}
+				}
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<textarea id="textarea1" ></textarea>
+			<input id="button1" type="button" value="发送" />
+			<ul id="ul">
+				<!--<li>测试</li>-->
+			</ul>
+			
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

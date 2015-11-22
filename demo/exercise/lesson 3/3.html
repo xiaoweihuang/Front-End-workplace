@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自增</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		.wrap{
+			width: 40px;
+			margin: 10px auto;
+		}
+		
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.wrap .button').click(function(){
+				this.value = ++this.value;
+			});
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<input class="button" type="button" value="0">
+	</div>
+</body>
+</html>

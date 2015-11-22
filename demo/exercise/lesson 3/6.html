@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>比较数字大小</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		.wrap{
+			width: 400px;
+			margin: 10px auto;
+		}
+		
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var number = $('.wrap .number');
+			var button = $('.wrap .button');
+			number.keyup(function(event) {
+				/* Act on the event */
+				this.value =  this.value.replace(/[^\d]|0/,"");
+			});
+			button.click(function(){
+				if (number.val() == "") {
+					alert("请输入数字！")
+				}else{
+					var length = number.val().length;
+					if (length == 2) {
+						alert("是两位数！");
+					} else {
+						alert("你输入的是" + length + "位数！");
+					}
+				}
+			})
+			
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<input class="number" type="text">
+		<input class="button" type="button" value="判断是否为两位数">
+	</div>
+</body>
+</html>

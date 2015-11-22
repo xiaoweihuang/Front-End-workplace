@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5拖拽</title>
+	<style type="text/css">
+		body,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		.demo{
+			margin: 10px;
+			padding: 10px;
+			background: #ccc;
+		}
+		.demo .panel_list{
+			overflow: hidden;
+		}
+		.panel_list li{
+			width: 100px;
+			height: 100px;
+			margin-right: 50px;
+			float: left;
+			background: white;
+			border:1px solid gray;
+		}
+		.demo .over{
+			background: #66FF66;
+		}
+		#src{
+			width: 50px;
+			height: 50px;
+			background: #00ffcc;
+			display:inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class="demo">
+		<ul class="panel_list">
+			<li class="panel_item"></li>
+			<li class="panel_item"></li>
+			<li class="panel_item"></li>
+			<li class="panel_item"></li>
+		</ul>
+		<h3>把下面的方块拖拽到上面的任意容器中</h3>
+		<span id="src" draggable="true">
+		</span>
+	</div>
+	<script type="text/javascript">
+	(function(){
+		var demo = {
+			init:function(){
+				this.src = document.querySelector('#src');
+				this.panel_list = document.querySelector('.panel_list');
+				this.src.addEventListener('dragstart',this.onDragStart,false);
+				this.panel_list.addEventListener('dragenter',this.onDragEnter,false);
+				this.panel_list.addEventListener('dragover',this.onDragOver,false);
+				this.panel_list.addEventListener('dragleave',this.onDragLeave,false);
+				this.panel_list.addEventListener('drop',this.onDrop,false);
+			},
+			onDragStart:function(ev){
+				ev.dataTransfer.setData('text',ev.target.id);
+				return false;
+			},
+			onDragEnter:function(ev){
+				if (ev.target.classList.contains('panel_item')) {
+					ev.target.classList.add('over');
+				};
+			},
+			onDragOver:function(ev){
+				ev.preventDefault();
+			},
+			onDragLeave:function(ev){
+				if (ev.target.classList.contains('panel_item')) {
+					ev.target.classList.remove('over');
+				};
+			},
+			onDrop:function(ev){
+				var id = ev.dataTransfer.getData('text');
+				if (ev.target.classList.contains('panel_item')) {
+					ev.target.classList.remove('over');
+					ev.target.appendChild(document.getElementById(id));
+				};
+				ev.preventDefault();
+		        if(window.addEventListener){
+		            ev.stopPropagation();
+		        }else if(window.attachEvent){
+		            ev.cancelBubble=true;
+		        }
+			}
+		};
+		demo.init();
+	}())
+	</script>
+</body>
+</html>

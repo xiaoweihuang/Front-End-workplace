@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>放大镜效果</title>
+		<style>
+			body{
+				margin:0;
+				padding:0
+			}
+			img{
+				display: block;
+			}
+			.smallimg{
+				float: left;
+				position: relative;
+				margin-right: 5px;
+			}
+			.virtual{
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: pink;
+				opacity: 0;
+				filter: alpha(opacity:0);
+				z-index: 2;
+			}
+			.showarea{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 50px;
+				height: 50px;
+				background: pink;
+				opacity: 0.5;
+				filter: alpha(opacity:50);
+				display: none;
+			}
+			.bigimg{
+				float: left;
+				width: 200px;
+				height: 200px;
+				overflow: hidden;
+				display: none;
+				position: relative;
+			}
+			.bigimg img{
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+		<script>
+			function getByClass(oParent,className){
+				var result = [];
+				var target = oParent.getElementsByTagName('*');
+				for(var i=0;i<target.length;i++){
+					if(target[i].className == className){
+						result.push(target[i]);
+					}
+				}
+				return result;
+			}
+			
+			window.onload = function(){
+				var oSmallimg = getByClass(document,'smallimg')[0];
+				var oShowarea = getByClass(oSmallimg,'showarea')[0];
+				var oVirtual = getByClass(oSmallimg,'virtual')[0];
+				var oBigimg = getByClass(document,'bigimg')[0];
+				var oImg = oBigimg.getElementsByTagName('img')[0];
+				oVirtual.onmouseover = function(){
+					oShowarea.style.display = 'block';
+					oBigimg.style.display = 'block';
+				}
+				oVirtual.onmouseout = function(){
+					oShowarea.style.display = 'none';
+					oBigimg.style.display = 'none';
+				}
+				
+				oVirtual.onmousemove = function(ev){
+					ev = ev || window.event;
+					var l = ev.clientX-oShowarea.offsetWidth/2;
+					var t = ev.clientY-oShowarea.offsetHeight/2;
+					if(l > this.offsetWidth-oShowarea.offsetWidth){
+						l = this.offsetWidth-oShowarea.offsetWidth;
+					}else if(l < 0){
+						l  = 0;
+					}
+					if(t > this.offsetHeight-oShowarea.offsetHeight){
+						t = this.offsetHeight-oShowarea.offsetHeight;
+					}else if(t < 0){
+						t = 0;
+					}
+					
+					oShowarea.style.left = l + 'px';
+					oShowarea.style.top = t + 'px';
+					
+					oImg.style.left = -(oImg.offsetWidth-oBigimg.offsetWidth) * l/(oVirtual.offsetWidth-oShowarea.offsetWidth) + 'px';
+					oImg.style.top = -(oImg.offsetHeight-oBigimg.offsetHeight) * t/(oVirtual.offsetHeight-oShowarea.offsetHeight) + 'px';
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="smallimg">
+			<div class="virtual"></div>
+			<a  href="#">
+				<img src="images/small.png" />
+			</a>
+			<div class="showarea"></div>
+		</div>
+			
+		<div class="bigimg">
+			<img src="images/big.png" />
+		</div>
+	</body>
+</html>

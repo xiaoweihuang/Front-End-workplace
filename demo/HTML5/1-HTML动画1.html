@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>animate</title>
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;/*这两行代码很关键，是让height:100%起作用的关键*/
+		}
+		body,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+			height: 50px;
+			line-height: 50px; 
+			border-bottom: 1px solid #ccc;
+			padding: 0 50px;
+		}
+		.wrap{
+			max-width: 300px;
+			max-height: 500px;
+			width: 100%;
+			height: 100%;
+			position: relative; 
+			overflow: hidden; 
+		}
+	   .list_view{
+			position: relative;
+			left: 0; 
+			top:0;
+			height: 100%;
+			width: 100%;  
+			overflow: scroll;
+			transition:transform 0.3s cubic-bezier(0.454,0.185,0.136,0.958) 0s;
+			will-change:transform;
+	   }
+	  .view_change .list_view{
+	  			transform:translateX(-100%);
+	  }
+	  .detail_view{
+	  			position: absolute;
+	  			left: 0; 
+	  			top:0;
+	  			height: 100%; 
+	  			width: 100%;
+	  			padding: 20px;
+	  			transform:translateX(100%);
+	  			transition:transform 0.3s cubic-bezier(0.454,0.185,0.136,0.958) 0s;
+	  			will-change:transform;
+	  }
+	  .view_change .detail_view{
+	  			transform:translateX(0);
+	  }
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="list_view">
+			<ul class="list">
+				<li class="list_item">item1</li>
+				<li class="list_item">item2</li>
+				<li class="list_item">item3</li>
+				<li class="list_item">item4</li>
+			</ul>
+		</div>
+		<div class="detail_view">
+			<h3>detail for <span class="item_name"></span></h3>
+			<button class="back_botton">back</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oWrap = document.querySelector('.wrap');
+		var oItemname = document.querySelector('.item_name');
+		var oBack_botton = document.querySelector('.back_botton');
+		var oList_view = document.querySelector('.list_view');
+		var aItem = document.querySelectorAll('.list li');
+		for(var i=0 ; i<aItem.length; i++){
+			aItem[i].addEventListener('click',setChange,false);
+
+		}
+		oBack_botton.addEventListener('click',setChange,false);
+		function setChange(ev){
+			var ev = ev || window.event;
+			oWrap.classList.toggle('view_change');
+			if(ev.currentTarget.classList.contains('list_item')){
+				oItemname.textContent = ev.currentTarget.textContent;
+			}
+		}
+
+	</script>
+</body>
+</html>

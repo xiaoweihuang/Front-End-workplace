@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图片提示效果</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		a{
+			text-decoration: none;
+			color: #555;
+			width: 80px;
+			height: 80px;
+			padding: 10px;
+			display: block;
+		}
+		.wrap{
+			width: 560px;
+			margin: 10px auto;
+			border: 1px solid #333;
+			padding: 0 0 10px 10px;
+		}
+		.wrap:after{
+			height: 0;
+			content: "";
+			display: block;
+			clear: both;
+		}
+		.wrap div{
+			float: left;
+			margin: 10px 10px 0 0 ;
+			border: 1px solid #333;
+			position: relative;
+		}
+		.wrap div strong{
+			display: block;
+		}
+		.wrap div img{
+			display: none;
+			border: 2px solid #999;
+			position: absolute;
+			left: -14px;
+			top: -14px;
+		}
+		.active{
+			display: block !important;
+			z-index: 999;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var aDiv = $('.wrap div');
+			var aImg = $('.wrap div img');
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].index = i;
+				aImg[i].index = i;
+			};
+			aDiv.hover(function(){
+				aImg[this.index].className = 'active';
+			},function(){
+				aImg[this.index].className = '';
+			})
+		})
+	</script>
+
+</head>    
+<body>
+	<div class="wrap">
+		<div>
+			<a href="#">
+				<strong>BMW</strong>
+				宝马汽车
+			</a>
+			<img src="6/1.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Alfa Romeo</strong>
+				阿尔法-罗米欧
+			</a>
+			<img src="6/2.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Skoda</strong>
+				斯柯达
+			</a>
+			<img src="6/3.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Volkswagen</strong>
+				大众汽车
+			</a>
+			<img src="6/4.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Saab</strong>
+				 萨布牌轿
+			</a>
+			<img src="6/5.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Lamborghini</strong>
+				 兰博基尼
+			</a>
+			<img src="6/6.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Porsche</strong>
+				 保时捷
+			</a>
+			<img src="6/7.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Peugeot</strong>
+				 标致
+			</a>
+			<img src="6/8.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Mercedes1</strong>
+				 梅赛德斯 奔驰
+			</a>
+			<img src="6/9.jpg">
+		</div>
+		<div>
+			<a href="#">
+				<strong>Buick</strong>
+				 别克汽车
+			</a>
+			<img src="6/10.jpg">
+		</div>
+	</div>
+</body>
+</html>

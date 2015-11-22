@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>函数传参</title>
+	<style type="text/css">
+		.wrap{
+			width: 180px;
+			height: 800px;
+			margin: 0 auto;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.btn').click(function(){
+				alert($('.val1').val());
+				alert($('.val2').val());
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<p>市：<input class="val1" type="text" value="广州市"></p>
+		<p>区：<input class="val2" type="text" value="天河区"></p>
+		<p><input class="btn" type="button" value="传参"></p>
+	</div>
+</body>
+</html>

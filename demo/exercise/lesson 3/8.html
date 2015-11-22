@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100秒倒计时</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 24px;
+		}
+		.wrap{
+			width: 400px;
+			height: 50px;
+			margin: 10px auto;
+			background: #555;
+			color: #fff;
+			text-align: center;
+			padding: 25px 0;
+		}
+		.wrap span{
+			display: inline-block;
+			width: 50px;
+			line-height: 50px;
+			text-align: center;
+			background: #fff;
+			color: #333;
+			font-size: 18px;
+			margin: 0 10px;
+			padding: 0 10px;
+		}
+		.button{
+			width: 400px;
+			height: 50px;
+			line-height: 50px;
+			margin: 10px auto;
+			background: #00A500;
+			color: #fff;
+			text-align: center;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var target = 100000;
+			var timer = null;
+			var bStart = true;
+			init();
+			function init(){
+				var minute = Math.floor(target/60000);
+				var second = Math.floor(target/1000-60*minute);
+				$('.wrap .min').html(format(minute));
+				$('.wrap .second').html(format(second));
+			}
+			function setTime(){
+				target -= 1000;
+				var minute = Math.floor(target/60000);
+				var second = Math.floor(target/1000-60*minute);
+				$('.wrap .min').html(format(minute));
+				$('.wrap .second').html(format(second));
+			}
+			function format(a){
+				return a.toString().replace(/^(\d)$/, "0$1")	
+			}
+			$('.button').click(function(){
+				if (bStart) {
+					timer = setInterval(setTime,1000);
+					$(this).css('background','red').html('取消');
+					bStart = false;
+				}else{
+					clearInterval(timer);
+					$(this).css('background','#00A500').html('重新计时');
+					target = 100000;
+					bStart = true;
+					init();
+				}
+				
+			})
+
+			//setInterval(setTime,1000);
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<span class="min"></span>分
+		<span class="second"></span>秒
+	</div>
+	<div class="button">开始计时</div>
+</body>
+</html>

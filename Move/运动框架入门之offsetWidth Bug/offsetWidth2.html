@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>BUG 解决</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: greenyellow;
+				border: 1px solid red;
+			}
+		</style>
+		<script>
+			setInterval(function(){
+				var speed = -1;
+				var currentWidth = parseInt(getStyle(oDiv, 'width'));
+				var oDiv = document.getElementById('div1');
+				oDiv.style.width = currentWidth + speed + 'px';//解决offsetWidth异常现象方二，使用getStyle方法获取div的inerwidth属性
+			},30)
+			
+			function getStyle(obj,attr){
+				if(obj.currentStyle){
+					return obj.currentStyle[attr];
+				}else{
+					return getComputedStyle(obj)[attr];
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1" ></div>
+	</body>
+</html>

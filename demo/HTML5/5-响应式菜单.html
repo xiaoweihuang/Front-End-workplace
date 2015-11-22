@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>响应式菜单</title>
+	<style type="text/css">
+		body,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		.menu-toggle{
+			display: none;
+			background: #ccc;
+			margin-bottom: 5px;
+			cursor: pointer;
+			height: 30px;
+			line-height: 30px;
+		}
+		.menu{
+			overflow: hidden;
+		}
+		.menu-item{
+			float: left;
+		}
+		.menu .menu-item a{
+			display: block;
+			padding: 0 20px;
+			height: 30px;
+			line-height: 30px;
+			text-decoration: none;
+			color: #333;
+			background: #eee;
+		}
+		.menu .menu-item a:hover{
+			background: grey;
+		}
+		@media (max-width: 400px) {
+		  .menu-toggle {
+		    display: block;
+		  }
+		  .menu {
+		    display: none;
+		  }
+		  .menu-active {
+		    display: block;
+		  }
+		  .menu-item {
+		    float: none;
+		  }
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<span class="menu-toggle">三</span>
+		<ul class="menu">
+			<li class="menu-item">
+				<a href="#">首页</a>
+			</li>
+			<li class="menu-item">
+				<a href="#">产品</a>
+			</li>
+			<li class="menu-item">
+				<a href="#">联系</a>
+			</li>
+			<li class="menu-item">
+				<a href="#">关于</a>
+			</li>
+			<li class="menu-item">
+				<a href="#">使命</a>
+			</li>
+		</ul>
+	</nav>
+	<p>Content</p>
+	<script type="text/javascript">
+		var menutoggle = document.querySelector('.menu-toggle');
+		var menu = document.querySelector('.menu');
+		menutoggle.addEventListener('click',function(){
+			menu.classList.toggle('menu-active');
+		},false);
+	</script>
+</body>
+</html>

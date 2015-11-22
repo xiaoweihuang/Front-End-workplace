@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>图片预加载</title>
+		<script>
+		window.onload = function(){
+			var oImg = new Image();
+			oImg.src = "http://5.26923.com/download/pic/000/272/c9f9682c21aec4f330fa5a702a6780df.jpg";
+//			oImg.onload = function(){
+//				alert("预加载成功！")
+//			}
+			oImg.onerror= function(){
+				alert("预加载失败！")
+			}
+		}
+			
+		</script>
+	</head>
+	<body>
+		<img style="width: 320px;height: 220px;" src="http://img6.faloo.com/Picture/0x0/0/223/223826.jpg" onmouseover="this.src='http://5.26923.com/download/pic/000/272/c9f9682c21aec4f330fa5a702a6780df.jpg'" 
+		onmouseout="this.src='http://img6.faloo.com/Picture/0x0/0/223/223826.jpg'"/>
+	</body>
+</html>

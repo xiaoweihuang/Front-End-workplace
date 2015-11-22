@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>全选与反选</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body,dl,dd{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		a{
+			text-decoration: none;
+		}
+		a:hover{
+			color: red;
+		}
+		.wrap{
+			width: 120px;
+			margin: 10px auto;
+			border: 1px solid #333;
+			border-radius: 5px;
+			padding: 10px 5px;
+		}
+		.wrap dt{
+			padding-bottom: 10px;
+			border-bottom: 1px solid #666;
+		}
+		.wrap label{
+			padding: 0 10px 0 5px;
+		}
+		
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.wrap .selectAll').click(function(){
+				if ($(this).is(":checked")) {
+					$("[name='options']").prop("checked", true);
+				}else{
+					$("[name='options']").removeAttr('checked');
+				}
+				
+			})
+			$('.wrap .notSelect').click(function(){
+				if ($('.wrap .selectAll').is(":checked")) {
+					$('.wrap .selectAll').removeAttr('checked');
+					$("[name='options']").each(function() {
+						 $(this).removeAttr("checked");
+					});
+				}else{
+					$('.wrap .selectAll').prop("checked", true);
+					$("[name='options']").each(function() {
+						 $(this).prop("checked", true);
+					});
+				}	
+			})
+		})
+	</script>
+
+</head>    
+<body>
+	<div class="wrap">
+		<dl>
+			<dt>
+				<input type="checkbox" class="selectAll"><label>全选</label><a href="javascript:;" class="notSelect">反选</a>
+			</dt>
+			<dd>
+				<p><input type="checkbox" name="options"><label>选项一</label></p>
+				<p><input type="checkbox" name="options"><label>选项二</label></p>
+				<p><input type="checkbox" name="options"><label>选项三</label></p>
+				<p><input type="checkbox" name="options"><label>选项四</label></p>
+				<p><input type="checkbox" name="options"><label>选项五</label></p>
+				<p><input type="checkbox" name="options"><label>选项六</label></p>
+				<p><input type="checkbox" name="options"><label>选项七</label></p>
+				<p><input type="checkbox" name="options"><label>选项八</label></p>
+				<p><input type="checkbox" name="options"><label>选项九</label></p>
+				<p><input type="checkbox" name="options"><label>选项十</label></p>
+			</dd>
+		</dl>
+	</div>
+</body>
+</html>

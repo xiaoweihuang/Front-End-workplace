@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>仿苹果桌面</title>
+		<style>
+			body,ul,li{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			#wrap{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				text-align: center;
+			}
+			img{
+				width: 64px;
+			}
+		</style>
+		<script>
+				document.onmousemove = function(ev){
+					var ev = ev || window.event;
+					var oDiv = document.getElementById('wrap');
+					var aImg = document.getElementsByTagName('img');
+					for(var i=0;i<aImg.length;i++){
+						var positionX = aImg[i].offsetLeft + aImg[i].offsetWidth/2;
+						var positionY = aImg[i].offsetTop + aImg[i].offsetHeight/2 + oDiv.offsetTop;
+						
+						var disX = ev.clientX-positionX;
+						var disY = ev.clientY-positionY;
+						
+						var dis = Math.sqrt(disX*disX + disY*disY);
+						var scale = 1-dis/320;
+						if(scale<0.5)
+						{
+							scale=0.5;
+						}
+						aImg[i].style.width = 128*scale + "px";
+						
+				}
+			}
+				
+
+			/*document.onmousemove = function(ev){
+				var ev = ev || window.event;
+				var oDiv = document.getElementById('wrap');
+				var aImg = document.getElementsByTagName('img');
+				for(var i=0;i<aImg.length;i++){
+					var positionX = aImg[i].offsetLeft + aImg[i].offsetWidth/2;
+					var positionY = aImg[i].offsetTop + aImg[i].offsetHeight/2 + oDiv.offsetTop;
+					
+					var disX = ev.clientX-positionX;
+					var disY = ev.clientY-positionY;
+					
+					var dis = Math.sqrt(disX*disX - disY*disY);
+					var scale = Math.abs(1-dis/320);
+					if(scale<0.5)
+					{
+						scale=0.5;
+					}
+					aImg[i].style.width = 128*scale + "px";
+					
+				}
+			}*/
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+				<img src="img/1.png" />
+				<img src="img/2.png" />
+				<img src="img/3.png" />
+				<img src="img/4.png" />
+				<img src="img/5.png" />
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

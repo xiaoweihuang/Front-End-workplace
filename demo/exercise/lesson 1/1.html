@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>改变属性</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.btns{
+			width: 330px;
+			margin:0 auto;
+		}
+		.btns:after{
+			height: 0;
+			display: block;
+			content: "";
+			clear: both;
+		}
+		.btns button{
+			float: left;
+			width: 50px;
+			height: 50px;
+		}
+		.btns .mr{
+			margin-right: 20px;
+		}
+		.content{
+			clear: both;
+			width: 100px;
+			height: 100px;
+			margin: 50px auto;
+			background: red;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var aBtns = $('.btn');
+			var oContent = $('.content');
+			//alert(aBtns.length);
+			var attrs = ['width','height','background','display','display'];
+			var values = ['200px','200px','blue','none','block'];
+			for (var i = 0; i < aBtns.length; i++) {
+				aBtns[i].index = i;
+				aBtns[i].addEventListener('click',function(){
+					if (this.index == 4) {oContent.get(0).style.cssText = ""};
+					oContent.css(attrs[this.index],values[this.index]);
+				},false);
+			};
+		})
+	</script>
+</head>
+<body>
+	<div class="btns">
+		<button class="btn mr">变宽</button>
+		<button class="btn mr">变高</button>
+		<button class="btn mr">变色</button>
+		<button class="btn mr">隐藏</button>
+		<button class="btn">重置</button>
+	</div>
+
+	<div class="content"></div>
+	
+</body>
+</html>

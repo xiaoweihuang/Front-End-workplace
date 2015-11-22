@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>自定义滚动条</title>
+		<style>
+			#div1{
+				width:600px;
+				height: 20px;
+				border: 1px solid silver;
+				position: relative;
+				margin-left: 100px;
+			}
+			#div1:hover{
+				cursor: pointer;
+			}
+			#div2{
+				width: 40px;
+				height: 20px;
+				background: chartreuse;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			#div3{
+				position: relative;
+				width: 580px;
+				height: 500px;
+				color: #808080;
+				overflow: hidden;
+				padding: 10px;
+				margin-top: 10px;
+				margin-left: 100px;
+				border: 1px solid skyblue;
+			}
+			#text{
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById("div2");
+				var oParent = document.getElementById("div1");
+				var oDiv3 = document.getElementById("div3");
+				var oText = document.getElementById("text");
+				oDiv.onmousedown = function(ev){
+					var ev = ev||window.event;
+					var disX = ev.clientX - this.offsetLeft;
+					var that = this;
+					document.onmousemove = fmove;
+					document.onmouseup = fup;				
+					function fmove(ev){
+						var ev = ev||window.event;
+						var L = ev.clientX-disX;
+						if(L<0){
+							L=0;
+						}else if(L>oParent.offsetWidth - that.offsetWidth){
+							L=oParent.offsetWidth - that.offsetWidth;
+						}
+						that.style.left = L + "px";
+						var scale = L/(oParent.offsetWidth - that.offsetWidth);
+						oText.style.top = -(oText.offsetHeight-oDiv3.offsetHeight)*scale + "px";
+					}
+					function fup(){
+						this.onmousemove = null;
+						this.onmouseup = null;
+					}
+					return false;	
+				};
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			<div id="div2"></div>
+		</div>
+		<div id="div3">
+			<div id="text">
+			杨小姐是双面人。
+
+她会突然抓住朋友的手，大骂社会风气不正公司评比不公，八百年不涨工资加班却越来越多，同时人心不古貌合神离，男朋友说话离谱气个半死，天天守着一样望不到天的办公室，赶着公交地铁回到人挤人的民房继续柴米油盐酱醋茶，然后卧床不起第二天又踏着七点半的闹钟拖着一身的不情愿继续重复这样的生活——她说，青春啊，就这么磨完了。
+
+有时她又会摆摆手继续有气无力的跟朋友说：这辈子咱注定也不是啥富贵命。平平淡淡的也没啥不好，当个老百姓不是一样活着吗？该结婚结婚，该生娃生娃，平平淡淡才是真哪！多存点钱回老家，将来把孩子好好培养培养不比啥都强！
+
+社会上有不计其数的追求“淡泊”不重“名利”的杨小姐。
+
+很多年轻人都在一副唉声叹气的样子感慨——嗨，这社会哪有那么多的高精尖就让咱们去做去占位置啊！那么累也不见得有啥回报，该干啥干啥，过好自己的日子，做个普通人不也挺好的吗？普通人才是社会的脊梁骨啊！
+
+昨天有个妹子突然大发感慨：老史啊，不是每个人都像你那么幸运的。我们也不指望那么走运，反正我也没啥大志向，追求没那么高。
+
+妹子啊，多亏你是个妹子，不然老史就要发飙了。
+
+2
+首先，确定想做个平凡人了是吗？
+
+那你就应该清心寡欲。清心寡欲是什么意思？不要急功近利啊！正常过日子能对付过去饿不死就行了啊！
+
+那你就不应该那么在乎钱财地位啊——比如，不涨工资、频繁加班、身心俱疲拖家带口、买不起牌子包包、开不起稍稍豪华点的车辆、挤挤公交地铁、多吃蔬菜少吃水果、牛肉涨了五块钱就去买猪肉、没事被人算计一下、老公老婆工资也就那样、为了孩子上学夜夜排队、一个月随了几次礼生活费没了、不去演唱会不去酒吧不去KTV不去SPA按摩——这不都应该是普通人最普通的日子了吗？
+
+那你就不该抱怨人家谁谁谁嫁的好啊，你也不应该被谁谁谁讨好老板涨了薪水这样的事情烦心啊，你更不应该感慨自己没有急于没有富贵命啊——你不是想做个普通人吗？
+
+其次，普通人，只代表生活质量普通，并不代表没有问题不辛苦不会被人欺负。做普通人也要有代价的！
+
+你想过做一个普通人的代价了吗？
+
+被人欺负了，打掉牙往肚里咽，没处说没处发泄，最多也就是亲戚朋友安慰一下然并卵。
+
+掉进人群里都找不到影子没什么说话的权利，也没有人在意，办个事情求爷爷告奶奶最后人家跟你说那你等着吧。
+
+熬呀熬呀有了孩子，就天天发愁望子成龙，然后一把鼻涕一把泪的告诉孩子们我养你们不容易啊！你们居然还不听话！
+
+上有老下有小把人压的喘不过气，有时候大半夜唉声叹气的想象这几十年过的，真窝囊。
+
+普通人的生活，也有很多问题——最主要的问题是，你碰到了问题很可能解决不了——看人脸色，被人骂一顿，被人欺负，经济发愁……你确定这些你都可以接受吗？
+
+如果你都可以接受，粗茶淡饭，那你就不应该有任何抱怨。你有了抱怨就证明你对当下的生活非常不满。
+
+3
+所以，你并不是淡泊明志，并没有那么高尚。你也想开着法拉利穿过卡萨布兰卡，你也想呼风唤雨有一帮小弟替你打杂，你更希望高薪高福利高面子，你更希望自己将来的孩子一开始就有一个更高的平台——谁不想这样呢？
+
+你只是没有机会！换句话说，如果你为了物质、地位、名气动了心，那说明你还是正常人，你还是没有那么超脱，没有那么高贵。
+
+你只是懒。你并不想去动弹动弹做点改变，或者逼着自己去多学点东西——你环顾四周，发现大家都差不多，都一个德性，所以你也无奈接受了这一点——你告诉自己，这辈子不也就这样吗？更可怕的是再感慨两句我天生就不是那个命。
+
+可是让你动心的大千世界那样璀璨繁华，那样若即若离，你就备受折磨，折磨多了，慢慢习惯了这样的状态——误以为自己追求的是平凡。
+
+你只是无奈，你只是感慨，你只是懒，你只是逼着自己习惯了这个样子罢了。
+
+你知道吗？我们很多人的平凡，过不好生活，与追求无关，都是被逼无奈的——谁让你不努力来着，谁让你懒来着？
+
+换句话说，你过普通人的日子，没有资格说自己淡泊名利；淡泊名利，都必须是一个人站在了一个高度，做出了颇有气度的取舍，这才叫做胸怀和追求。你的努力程度，应该还没有达到能谈追求的水平。
+
+理想，也许不会实现；不过，年轻人，至少要走在追求理想的路上。
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>任意属性值变化之透明度</title>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background: green;
+				opacity: 0.3;
+				filter: alpha(opacity:30);
+			}
+		</style>
+		<script>
+			function startMove(object,attr,target){
+				clearInterval(object.timer);
+				object.timer = setInterval(function(){
+					if(attr == 'opacity'){
+						var currentstyle = parseInt((getStyle(object,attr))*100);
+					}else{
+						var currentstyle = parseInt(getStyle(object,attr));
+					}
+					
+					var speed = (target-currentstyle)/8;
+					speed>0?speed = Math.ceil(speed):speed = Math.floor(speed);
+					if(currentstyle == target){
+						clearInterval(object.timer);
+					}else{
+						if(attr == 'opacity'){//单独处理opacity
+							object.style.filter = "alpha(opacity:'+ currentstyle +　speed +')";
+							object.style.opacity = (currentstyle +　speed)/100;
+						}else{
+							object.style[attr] = currentstyle +　speed + 'px';
+						}
+
+					}
+				},30)
+			}
+			
+			function getStyle(object,attr){
+				return  object.currentStyle?object.currentStyle[attr]:getComputedStyle(object,false)[attr];
+			}
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				oDiv.timer = null;
+				oDiv.onmouseover = function(){
+					startMove(this,'opacity',100);
+				}
+				oDiv.onmouseout = function(){
+					startMove(this,'opacity',30);
+				}
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>

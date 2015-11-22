@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>分享到侧边栏</title>
+		<style>
+			#div1{
+				position: absolute;
+				left: -100px;
+				top: 0;
+				width: 100px;
+				height: 200px;
+				background: #ADFF2F;
+			}
+			.desc{
+				position: absolute;
+				width: 20px;
+				height: 60px;
+				line-height: 20px;
+				text-align: center;
+				left: 100px;
+				top: 70px;
+				background: goldenrod;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var odiv = document.getElementById('div1');
+				odiv.onmouseover = function(){
+					startMove(0);
+				}
+				odiv.onmouseout = function(){
+					startMove(-100);
+				}
+			}
+			
+			var timer = null;
+			function startMove(target){
+				clearInterval(timer);
+				var odiv = document.getElementById('div1');
+				if(odiv.offsetLeft < target){
+					var speed = 5;
+				}
+				if(odiv.offsetLeft > target){
+					var speed = -5;
+				}
+				
+				timer = setInterval(function(){
+					if(odiv.offsetLeft==target){
+						clearInterval(timer);
+					}else{
+						odiv.style.left = odiv.offsetLeft + speed + "px";
+					}
+					
+				},30)
+			}
+/*			function startMove(){
+				clearInterval(timer);
+				var odiv = document.getElementById('div1');
+				var speed = 5;
+				timer = setInterval(function(){
+					if(odiv.offsetLeft==0){
+						clearInterval(timer);
+					}else{
+						odiv.style.left = odiv.offsetLeft + speed + "px";
+					}
+					
+				},30)
+			}
+			function startMove2(){
+				clearInterval(timer);
+				var odiv = document.getElementById('div1');
+				var speed = -5;
+				timer = setInterval(function(){
+					if(odiv.offsetLeft==-100){
+						clearInterval(timer);
+					}else{
+						odiv.style.left = odiv.offsetLeft + speed + "px";
+					}
+					
+				},30)
+			}*/
+		</script>
+	</head>
+	<body>
+		<div id="div1"><span class="desc">分享到</span></div>
+	</body>
+</html>
+
+
+
+
+

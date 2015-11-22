@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>BUG 演示</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: greenyellow;
+				border: 1px solid red;
+			}
+		</style>
+		<script>
+			setInterval(function(){
+				var speed = -1;
+				var oDiv = document.getElementById('div1');
+				oDiv.style.width = oDiv.offsetWidth + speed + 'px';//因为offsetWidth包括边框，所以当div设置边框而且speed的绝对值小于边框宽度时，就会有异常现象
+			},30)
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>

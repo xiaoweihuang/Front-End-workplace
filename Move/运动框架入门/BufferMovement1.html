@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>跟随页面滚动的侧边导航</title>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				height: 1000px;
+			}
+			#bar{
+				position: absolute;
+				right: 0;
+				width: 60px;
+				height: 200px;
+				background: goldenrod;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById('bar');
+				var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+				oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2 + scrolltop+'px';	
+			}
+			window.onscroll = function(){
+				var oDiv = document.getElementById('bar');
+				var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+				/*oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2 + scrolltop+'px';*/	
+				var t = (document.documentElement.clientHeight-oDiv.offsetHeight)/2 + scrolltop;
+				startMove(Math.floor(t));
+			}
+			
+			var timer = null;
+			function startMove(target){
+				clearInterval(timer);
+				var oDiv = document.getElementById('bar');
+				timer = setInterval(function(){
+					var speed = (target-oDiv.offsetTop)/5;
+					if(speed>0){
+						speed = Math.ceil(speed);
+					}else{
+						speed = Math.floor(speed);
+					}
+					
+					if(oDiv.offsetTop == target){
+						clearInterval(timer);
+					}else{
+						oDiv.style.top = oDiv.offsetTop + speed + 'px';
+					}
+					
+				},30)
+			}
+		</script>
+	</head>
+	<body>
+		<div id="bar"></div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

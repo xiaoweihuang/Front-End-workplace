@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片淡入淡出效果</title>
+		<style>
+			.wrap{
+				width:600px;
+				margin: 0 auto;
+			}
+			.wrap img{
+				width:600px;
+				filter:alpha(opacity:50);
+				opacity: 0.5;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById('img');
+				oDiv.onmousemove = function(){
+					startMove(100);
+				}
+				oDiv.onmouseout = function(){
+					startMove(50);
+				}
+			}
+		
+			var timer = null;
+			var alpha = 50;//必须为全局变量
+			function startMove(target){
+				clearInterval(timer);
+				var oDiv = document.getElementById('img');
+				timer = setInterval(function(){
+					var speed = 0;
+					if(alpha<target){
+						speed = 10;
+					}else{
+						speed = -10;
+					}
+					if(alpha==target){
+						clearInterval(timer);
+					}else{
+						alpha += speed;
+						oDiv.style.opacity = alpha/100;
+						oDiv.style.filter = 'alpha(opacity:'+alpha+')';
+					}	
+				},30)
+			}
+		</script>
+	</head>
+	<body>
+		<div class="wrap"><img id="img" src="img/DSC08658.JPG" /></div>
+		<div class="wrap">淡入（鼠标移入时），淡出（鼠标移出时）</div>
+	</body>
+</html>

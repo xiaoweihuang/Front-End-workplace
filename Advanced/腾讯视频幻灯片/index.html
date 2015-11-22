@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>腾讯视频幻灯片</title>
+		<script type="text/javascript" src="js/index.js" ></script>
+		<style>
+			body,ul,li{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			#wrap{
+				height: 504px;
+				position: relative;
+			}
+			#imgListLarge{
+				position: relative;
+				height: 504px;
+			}
+			#imgListLarge li{
+				height: 504px;
+				width: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				
+			}
+			#imgListLarge li img{
+				height: 504px;
+				width: 100%;
+				position: absolute;
+			}
+			#list{
+				width: 746px; 
+				height: 64px;
+				overflow: hidden;
+				margin: 10px auto;
+				position: relative;
+				background: silver;
+			}
+			#innerWrap{
+				width: 666px; 
+				height: 64px;
+				overflow: hidden;
+				margin: 0 auto;
+				position: relative;
+			}
+			#innerWrap:after{
+				content: '';
+				height: 0;
+				display: block;
+				clear: both;
+			}
+			#innerWrap ul{
+				width: 1332px; 
+				height: 64px;
+				padding: 7px 0;
+				position: absolute;
+			}
+			#innerWrap li{
+				float: left;
+				height: 50px;
+				margin:0 5px;
+			}
+			#innerWrap li img{
+				width: 85px;
+				height: 50px;
+			}
+			#prev{
+				width: 36px;
+				height: 52px;
+				line-height: 52px;
+				text-align: center;
+				background: grey;
+				color: white;
+				position: absolute;
+				left: 6px;
+				top: 6px;
+			}
+			#next{
+				width: 36px;
+				height: 52px;
+				line-height: 52px;
+				text-align: center;
+				background: grey;
+				color: white;
+				position: absolute;
+				right: 6px;
+				top: 6px;
+			}
+			
+			.hidden{
+				opacity: 0 ;
+				filter:alpha(opacity:0);
+			}
+			.active{
+				opacity: 1 ;
+				filter:alpha(opacity:100);
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oUlLag = document.getElementById('imgListLarge');
+				var aLiLag = oUlLag.getElementsByTagName('li');
+				var oUlSmal = document.getElementById('imgListSmall');
+				var aLiSmal = oUlSmal.getElementsByTagName('li');
+				var oPrev = document.getElementById('prev');
+				var oNext = document.getElementById('next');
+				var oList = document.getElementById('list');
+				var num = 0;
+				var timer = null;
+				for(var i=0;i<aLiLag.length;i++){
+					aLiLag[i].className = "hidden";
+					aLiLag[i].index = i;
+				}
+				aLiLag[num].className = "active";
+				
+				
+				for(var i=0;i<aLiSmal.length;i++){
+					aLiSmal[i].index = i;
+					aLiSmal[i].onmouseover = function(){
+						startMove(aLiLag[num],{opacity:0});	
+						num = this.index;
+						startMove(aLiLag[num],{opacity:100});
+					}
+					aLiSmal[i].onmouseout = function(){
+						startMove(aLiLag[num],{opacity:0});	
+						num = this.index;
+						startMove(aLiLag[num],{opacity:100});
+					}
+				}
+				
+				timer = setInterval(function(){
+					//设置当前大图所在li不可见
+					startMove(aLiLag[num],{opacity:0});
+					if(num<13){
+						num++;
+					}else{
+						num = 0;
+					}
+					//缩略图移动
+					if(num==7){
+						startMove(oUlSmal,{left:-665});
+					}
+					if(num==0){
+						startMove(oUlSmal,{left:0});
+					}
+					console.log(num);
+					//大图所在li改变
+					startMove(aLiLag[num],{opacity:100});
+				},3000);
+				
+				oList.onmouseover = function(){
+					console.log(num);
+					clearInterval(timer);
+				}
+				oList.onmouseout = function(){
+					timer = setInterval(function(){
+						startMove(aLiLag[num],{opacity:0});	
+						if(num<13){
+							num++;
+						}else{
+							num = 0;
+						}
+						//缩略图移动
+						if(num==7){
+							startMove(oUlSmal,{left:-665});
+						}
+						if(num==0){
+							startMove(oUlSmal,{left:0});
+						}
+						console.log(num);
+						startMove(aLiLag[num],{opacity:100});
+					},3000);
+				}
+
+				oPrev.onmouseover = function(){
+					this.style.background = '#6D6D6E';
+					this.style.cursor = 'pointer';
+				}
+				oPrev.onmouseout = function(){
+					this.style.background = 'grey';
+				}
+				oNext.onmouseover = function(){
+					this.style.background = '#6D6D6E';
+					this.style.cursor = 'pointer';
+				}
+				oNext.onmouseout = function(){
+					this.style.background = 'grey';
+				}
+				oNext.onclick = function(){
+					startMove(aLiLag[num],{opacity:0});
+					startMove(oUlSmal,{left:-665});
+					num = 7;
+					startMove(aLiLag[num],{opacity:100});
+				}
+				oPrev.onclick = function(){
+					startMove(aLiLag[num],{opacity:0});
+					startMove(oUlSmal,{left:0});
+					num = 0;
+					startMove(aLiLag[num],{opacity:100});
+
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<ul id="imgListLarge">
+				<li><img src="img/0.jpg" /></li>
+				<li><img src="img/1.jpg" /></li>
+				<li><img src="img/2.jpg" /></li>
+				<li><img src="img/3.jpg" /></li>
+				<li><img src="img/4.jpg" /></li>
+				<li><img src="img/5.jpg" /></li>
+				<li><img src="img/6.jpg" /></li>
+				<li><img src="img/7.jpg" /></li>
+				<li><img src="img/8.jpg" /></li>
+				<li><img src="img/9.jpg" /></li>
+				<li><img src="img/10.jpg" /></li>
+				<li><img src="img/11.jpg" /></li>
+				<li><img src="img/12.jpg" /></li>
+				<li><img src="img/13.jpg" /></li>
+			</ul>	
+		</div>
+		<div id="list">
+			<div id="innerWrap">
+					<ul id="imgListSmall">
+						<li><img src="img/0s.jpg" /></li>
+						<li><img src="img/1s.jpg" /></li>
+						<li><img src="img/2s.jpg" /></li>
+						<li><img src="img/3s.jpg" /></li>
+						<li><img src="img/4s.jpg" /></li>
+						<li><img src="img/5s.jpg" /></li>
+						<li><img src="img/6s.jpg" /></li>
+						<li><img src="img/7s.jpg" /></li>
+						<li><img src="img/8s.jpg" /></li>
+						<li><img src="img/9s.jpg" /></li>
+						<li><img src="img/10s.jpg" /></li>
+						<li><img src="img/11s.jpg" /></li>
+						<li><img src="img/12s.jpg" /></li>
+						<li><img src="img/13s.jpg" /></li>
+					</ul>	
+			</div>
+			<a id="prev" title="上一组"> < </a> 
+			<a id="next" title="下一组"> > </a>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>百度搜索首页</title>
+		<style>
+		
+			body,ul,li{
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul{
+				list-style: none;
+				width: 642px;
+				margin: 0 auto;
+				border: 1px solid silver;
+				float: left;
+				display: none;
+			}
+			
+			li{
+				width: 636px;
+				height: 28px;
+				line-height: 28px;
+				padding-left: 6px;
+			}
+			
+			li:hover{
+				background-color: gainsboro;
+				cursor: pointer;
+			}
+			
+			#wrap{
+				width: 645px;
+				margin: 0px auto;
+				margin-top: 100px;
+				
+			}
+			
+			#wrap:after{
+				content: "";
+				display: block;
+				height: 0;
+				clear: both;
+			}
+			.text_wrap,#inputtext{
+				width: 539px;
+				height: 34px;
+			}
+			.text_wrap,#search_btn{
+				float: left;
+			}
+			#inputtext{
+				font: 16px/18px arial;
+				padding: 6px 0 0 7px;
+			}
+			#search_btn{
+				margin-left: 5px;
+				line-height: 42px;
+				font-size: 15px;
+				color: white;
+				text-align: center;
+				background-color: #3385FF;
+				height: 42px;
+				width: 100px;
+				
+			}
+			#search_btn:hover{
+				background-color: #3476FF;
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			function callback(data){
+				console.log(data);
+				var html= "";
+				var oResult = document.getElementById('result');
+				if(data.s.length){
+					for(var i=0;i<data.s.length;i++){
+						html += "<li> " +data.s[i]+" </li>";
+					}
+					oResult.style.display = "block";
+					oResult.innerHTML = html;
+				}else{
+					oResult.style.display = null;
+				}
+				
+			}
+			
+			window.onload = function(){
+				var oText = document.getElementById('inputtext');
+				var oSearch_btn = document.getElementById('search_btn');
+				var oResult = document.getElementById('result');
+				oText.onkeyup = function(){
+					if(oText.value != ""){
+						var oScript = document.createElement('script');
+						oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+ oText.value +"&cb=callback";
+						document.head.appendChild(oScript);
+						/*oResult.style.display = "block";*/
+					}else{
+						oResult.style.display = null;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+				<div class="text_wrap"><input id="inputtext" type="text" /></div>
+				<div id="search_btn">百度一下</div>
+				<ul id="result">
+					<!--<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>-->
+				</ul>
+		</div>
+		
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

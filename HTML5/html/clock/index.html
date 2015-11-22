@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Clock</title>
+		<style type="text/css">
+			body{
+				font-size: 1.8em;
+				line-height: 1.8;
+				font-weight: 300;
+				color: #2E2729;
+			}
+			
+			.demo-comtainer{
+				position: relative;
+				width: 16em;
+				margin: 0 auto;
+				background: #99CCCC;
+				border-radius: 0.5em;
+				font-family: 'Varela Round',Helvetica,Arial,sans-serif;
+			}
+			.clock{
+				 position: relative;
+				 width: 16em;
+				 height: 16em;
+				background: url(img/ios_clock.svg) no-repeat center;
+				background-size: 88%;
+				border-radius: 50%;
+			}
+			.clock.simple:after{
+				  content: "";
+				  position: absolute;
+				  left: 50%;
+				  top: 50%;
+				  transform: translate(-50%, -50%);
+				  width: 5%;
+				  height: 5%;
+				  border-radius: 50%;
+				  background: #000;
+				  z-index: 10;			 				  
+			}
+			.hours-container,.minutes-container,.seconds-container{
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+			.hours{
+				position: absolute;
+				left: 48.7%;
+				top: 30%;
+				width: 2.5%;
+				height: 20%;
+				background: #000000;
+				transform-origin: 50% 100%;
+				
+			}
+			.minutes{
+				position: absolute;
+				left: 49%;
+				top: 10%;
+				width: 2%;
+				height: 40%;
+				background: #000000;
+				transform-origin: 50% 100%;
+				
+			}
+			.seconds{
+				position: absolute;
+				left: 49.5%;
+				top: 14%;
+				width: 1%;
+				height: 45%;
+				background: red;
+				transform-origin: 50% 80%;
+				 z-index: 10;
+				
+			}
+			
+			@keyframes rotate {
+  				100% {
+    				transform: rotateZ(360deg);
+			   }
+			}
+			
+			@-webkit-keyframes rotate{
+				100%{
+					transform: rotateZ(360deg);
+					}
+			}
+			
+			@-moz-keyframes rotate{
+				100%{
+					transform: rotateZ(360deg);
+					}
+			}
+			
+			@-ms-keyframes rotate{
+				100%{
+					transform: rotateZ(360deg);
+					}
+			}
+			@-moz-keyframes rotate{
+				100%{
+					transform: rotateZ(360deg);
+					}
+			}
+			.hours-container{
+				-moz-animation: rotate 43200s infinite linear;
+				-ms-animation: rotate 43200s infinite linear;
+				-webkit-animation: rotate 43200s infinite linear;
+				animation: rotate 43200s infinite linear;
+			}
+			.minutes-container{
+				-moz-animation: rotate 3600s infinite linear;
+				-ms-animation: rotate 3600s infinite slinear;
+				-webkit-animation: rotate 3600s infinite linear;
+				animation: rotate 3600s infinite linear;
+			}
+			.seconds-container{
+				-moz-animation: rotate 60s infinite linear;
+				-ms-animation: rotate 60s infinite linear;
+				-webkit-animation: rotate 60s infinite linear;
+				animation: rotate 60s infinite linear;
+			}
+		</style>
+		
+		<script type="application/javascript">
+			window.onload = function(){
+				//初始化
+				function initClock(){				
+				  var date = new Date;
+				  var seconds = date.getSeconds();
+				  var minutes = date.getMinutes();
+				  var hours = date.getHours();
+				
+				  var hands = [
+				    {
+				      hand: 'hours',
+				      angle: (hours * 30) + (minutes / 2)
+				    },
+				    {
+				      hand: 'minutes',
+				      angle: (minutes * 6)
+				    },
+				    {
+				      hand: 'seconds',
+				      angle: (seconds * 6)
+				    }
+				  ];
+
+				  for (var j = 0; j < hands.length; j++) {
+				    var elements = document.querySelectorAll('.' + hands[j].hand);
+				    for (var k = 0; k < elements.length; k++) {
+				        elements[k].style.webkitTransform = 'rotateZ('+ hands[j].angle +'deg)';
+				        elements[k].style.transform = 'rotateZ('+ hands[j].angle +'deg)';
+				        if (hands[j].hand === 'minutes') {
+				          elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
+				        }
+				    }
+				  }
+				}
+				
+				initClock();
+			}
+		</script>
+	</head>
+	<body>
+		<div class="demo-comtainer">
+			<article class="clock simple">
+				<div class="hours-container">
+				  <div class="hours"></div>
+				</div>
+				<div class="minutes-container">
+				  <div class="minutes"></div>
+				</div>
+				<div class="seconds-container">
+				  <div class="seconds"></div>
+				</div>
+			</article>
+			
+		</div>
+			
+	</body>
+</html>

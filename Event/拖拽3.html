@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>拖拽</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				if(oDiv.setCapture){
+					oDiv.onmousedown = function(ev){
+					var ev = ev||window.event;
+					var disX = ev.clientX - oDiv.offsetLeft;
+					var disY = ev.clientY - oDiv.offsetTop;
+					oDiv.onmousemove = function(ev){
+						var ev = ev||window.event;
+						oDiv.style.left = ev.clientX - disX + "px";
+						oDiv.style.top = ev.clientY - disY + "px";
+							if(oDiv.ReleaseCapture){
+								oDiv.ReleaseCapture();
+							}
+							
+					}
+					oDiv.onmouseup = function(){
+						oDiv.onmousemove = null;
+						oDiv.onmouseup = null;
+					}
+					oDiv.setCapture();
+					return false;
+				}
+				}else{
+					oDiv.onmousedown = function(ev){
+					var ev = ev||window.event;
+					var disX = ev.clientX - oDiv.offsetLeft;
+					var disY = ev.clientY - oDiv.offsetTop;
+					document.onmousemove = function(ev){
+						var ev = ev||window.event;
+						oDiv.style.left = ev.clientX - disX + "px";
+						oDiv.style.top = ev.clientY - disY + "px";
+					}
+					document.onmouseup = function(){
+						document.onmousemove = null;
+						document.onmouseup = null;
+					}
+					return false;
+				}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div>拖拽</div>
+		<div id="div1">abcdefg</div>
+	</body>
+</html>

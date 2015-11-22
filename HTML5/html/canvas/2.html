@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>绘制矩形</title>
+		<style>
+		#mycanvas{
+			border: 1px black dashed;
+		}
+		</style>
+		<script type="text/javascript">
+				window.onload = function(){
+					var canvas = document.getElementById('mycanvas');
+					var context = canvas.getContext('2d');
+					context.beginPath();
+	
+					context.fillRect(10,10,150,150);//默认填充样式
+					context.strokeRect(170,10,150,150);//默认边框样式
+					
+					context.fillStyle = "aqua";
+					context.strokeStyle = "cadetblue";
+					context.fillRect(10,170,150,150);//设置填充样式
+					context.strokeRect(170,170,150,150);//设置边框样式
+					
+					context.fillStyle = "cornflowerblue";
+					context.fillRect(10,330,150,150);
+					context.clearRect(40,360,80,80);//清除一个矩形区域
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="500px" height="500px">不好意思，你的浏览器不支持HTML5</canvas>
+	</body>
+</html>

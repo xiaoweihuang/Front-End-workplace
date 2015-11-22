@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>拖拽</title>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+			
+			#div2{
+				width: 100px;
+				height: 100px;
+				background: greenyellow;
+				position: absolute;
+			}
+		</style>
+		<script>
+			/*window.onload = function(){
+				Drag(document.getElementById("div1"));
+			} 
+			
+			function Drag(obj){
+				//var oDiv = document.getElementById(id);
+				obj.onmousedown = function(ev){
+					var ev = ev||window.event;
+					var disX = ev.clientX - obj.offsetLeft;
+					var disY = ev.clientY - obj.offsetTop;
+					if(obj.setCapture){
+						obj.onmousemove = fmove;
+						obj.onmouseup = fup;
+						obj.setCapture();
+					}else{
+						document.onmousemove = fmove;
+						document.onmouseup = fup;
+					}
+					
+					function fmove(ev){
+						var ev = ev||window.event;
+						obj.style.left = ev.clientX - disX + "px";
+						obj.style.top = ev.clientY - disY + "px";
+										
+					}
+					function fup(){
+						this.onmousemove = null;
+						this.onmouseup = null;
+						if(obj.ReleaseCapture){
+							obj.ReleaseCapture();
+						}
+					
+					return false;
+				}	
+			}
+			
+			
+			}*/
+			
+			
+			
+			window.onload = function(){
+				 new Drag('div1');
+				 //new Drag('div2');
+			}
+			//下面是面向对象方式实现拖拽
+			function Drag(id){
+				var oDiv = document.getElementById(id);
+				oDiv.onmousedown = this.startMove;
+			}
+			
+			Drag.prototype.startMove = function(ev){
+					var ev = ev||window.event;
+					var disX = ev.clientX - this.offsetLeft;
+					var disY = ev.clientY - this.offsetTop;
+					var that = this;
+					if(this.setCapture){
+						this.onmousemove = fmove;
+						this.onmouseup = fup;
+						this.setCapture();
+					}else{
+						document.onmousemove = fmove;
+						document.onmouseup = fup;
+					}
+					
+					function fmove(ev){
+						var ev = ev||window.event;
+						var L = ev.clientX-disX;
+						var T = ev.clientY - disY;
+						if(L<0){
+							L=0;
+						}else if(L>document.documentElement.clientWidth - that.offsetWidth){
+							L=document.documentElement.clientWidth - that.offsetWidth;
+						}
+						if(T<0){
+							T=0;
+						}else if(T>document.documentElement.clientHeight - that.offsetHeight){
+							T=document.documentElement.clientHeight - that.offsetHeight;
+						}
+						that.style.left = L + "px";
+						that.style.top = T + "px";	
+						//console.log("距离左边距：" + L + " ,距离顶边距 ：" + T);
+					}
+					
+					function fup(){
+						this.onmousemove = null;
+						this.onmouseup = null;
+						if(that.ReleaseCapture){
+							that.ReleaseCapture();
+						}
+					}
+					
+					return false;	
+				}	
+			
+		</script>
+	</head>
+	<body>
+		<div>拖拽</div>
+		<div id="div1">abcdefg</div>
+		<!--<div id="div2">abcdefg</div>-->
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>

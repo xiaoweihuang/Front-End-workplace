@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>绘制曲线(二次贝塞尔曲线)</title>
+		<style>
+		#mycanvas{
+			border: 1px black dashed;
+		}
+		</style>
+		<script type="text/javascript">
+				window.onload = function(){
+					var canvas = document.getElementById('mycanvas');
+					var context = canvas.getContext('2d');
+					context.beginPath();
+					context.moveTo(50,150);//起点
+					context.lineTo(150,20);//控制点
+					context.lineTo(300,150);//终点
+					context.lineWidth = 2;
+					context.strokeStyle = 'aqua';
+					context.stroke();
+					
+					//绘制二次贝塞尔曲线
+					context.beginPath();
+					context.moveTo(50,150);
+					context.quadraticCurveTo(150,20,300,150);
+					context.strokeStyle = 'red';
+					context.stroke();
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="500px" height="500px">不好意思，你的浏览器不支持HTML5</canvas>
+	</body>
+</html>

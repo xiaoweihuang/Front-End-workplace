@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>输入法选择</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		ul,li{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.wrap{
+			width: 100px;
+			margin: 10px auto;
+		}
+		.list-container{
+			margin-top: 5px;
+			padding: 2px;
+		}
+		.list-container .list{
+			border: 1px solid #555;
+		}
+		.list-container .list li{
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			cursor: pointer;
+			color: blue;
+		}
+		.list-container .list li:hover{
+			background: #d9e1f6;
+		}
+		.list-container .list .close{
+			border-top: 1px solid #555;
+		}
+		.hidden{
+			display: none;
+		}
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('input[type=button]').click(function(){
+				$('.list').toggleClass('hidden');
+			});
+			$('.close').click(function(){
+				$('.list').addClass('hidden');
+			})
+		})
+	</script>
+</head>    
+<body>
+	<div class="wrap">
+		<label><input type="button" value="选择输入法"></label>
+		<div class="list-container">
+			<ul class="list hidden">
+				<li>百度输入法</li>
+				<li>搜狗输入法</li>
+				<li class="close">关闭</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>碰撞运动</title>
+		<style>
+			*{
+				margin:0;
+				padding: 0;
+			}
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			var timer = null;
+			var speedX = 6;
+			var speedY = 10;
+			function startMove(){
+					setInterval(function(){
+						var oDiv= document.getElementById('div1');
+						var offsetL = oDiv.offsetLeft+speedX ;
+						var offsetT = oDiv.offsetTop+speedY;
+						
+						if( offsetT >= document.documentElement.clientHeight - oDiv.offsetHeight){
+							speedY = -speedY;
+						}
+						
+						if( offsetT < 0){
+							speedY = -speedY;
+						}
+						
+						if( offsetL >= document.documentElement.clientWidth - oDiv.offsetWidth){
+							speedX = -speedX;
+						}
+						
+						if( offsetL < 0 ){
+							speedX = -speedX;
+						}
+						
+						oDiv.style.left = oDiv.offsetLeft + speedX + 'px';
+	
+						oDiv.style.top = oDiv.offsetTop + speedY + 'px';
+					
+					
+				},30);	
+			}
+			
+			window.onload = function(){
+					var oBtn = document.getElementById('button1');
+					oBtn.onclick = function(){
+						startMove();
+					}
+				}
+		</script>
+	</head>
+	<body>
+		<input id="button1" type="button" value="开始运动" />
+		<div id="div1"></div>
+	</body>
+</html>

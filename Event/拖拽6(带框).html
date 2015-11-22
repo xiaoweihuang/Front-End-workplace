@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽带框</title>
+		<script>
+			function Drag(id){
+				var oDiv = document.getElementById(id);
+				oDiv.onmousedown = this.startMove;
+			}
+
+			Drag.prototype.startMove = function(ev){
+				var ev = ev||window.event;
+				var disX = ev.clientX - this.offsetLeft;
+				var disY = ev.clientY - this.offsetTop;
+				this.style.zIndex = 1000;
+				var oDiv2 = document.createElement("div");
+				oDiv2.className = "div2";
+				document.body.appendChild(oDiv2);
+				oDiv2.style.left = this.style.left;
+				oDiv2.style.top = this.style.top;
+				var that = this;
+				if(this.setCapture){
+					this.onmousemove = fmove;
+					this.onmouseup = fup;
+					this.setCapture();
+				}else{
+					document.onmousemove = fmove;
+					document.onmouseup = fup;
+				}
+				
+				function fmove(ev){
+					var ev = ev||window.event;
+					var L = ev.clientX-disX;
+					var T = ev.clientY - disY;
+					if(L<0){
+						L=0;
+					}else if(L>document.documentElement.clientWidth - that.offsetWidth){
+						L=document.documentElement.clientWidth - that.offsetWidth;
+					}
+					if(T<0){
+						T=0;
+					}else if(T>document.documentElement.clientHeight - that.offsetHeight){
+						T=document.documentElement.clientHeight - that.offsetHeight;
+					}
+					that.style.left = L + "px";
+					/*oDiv2.style.left = L + "px";*/
+					that.style.top = T + "px";
+					/*oDiv2.style.top = T + "px";*/
+				}
+				
+				function fup(){
+					this.onmousemove = null;
+					this.onmouseup = null;
+					if(that.ReleaseCapture){
+						that.ReleaseCapture();
+					}
+					document.body.removeChild(oDiv2);
+				}
+				
+				return false;	
+			}	
+			
+		</script>
+		<style>
+			#div1{
+				width: 100px;
+				height: 100px;
+				background: skyblue;
+				position: absolute;
+			}
+			.div2{
+				width: 100px;
+				height: 100px;
+				border: 1px dotted black;
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				new Drag('div1');
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>

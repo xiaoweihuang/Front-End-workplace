@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>单一按钮显示隐藏</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body,h1,ul,li{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		li{
+			list-style: none;
+		}
+		.wrap{
+			width: 200px;
+			margin: 10px auto;
+			border: 1px solid #aaa;
+		}
+		.wrap h1{
+			height: 30px;
+			line-height: 30px;
+			cursor: pointer;
+			border: 1px #fff solid;
+			font-size: 14px;
+			padding-left: 14px;
+			background:#ccc url('9/ico.gif') no-repeat 175px 15px;
+		}
+		.background{
+			background:#ccc url('9/ico.gif') no-repeat 175px -12px !important;
+		}
+		.wrap li{
+			height: 25px;
+			line-height: 25px;
+			cursor: pointer;
+			background: #e9edf2;
+			font-size: 14px;
+			padding-left: 14px;
+		}
+		.wrap li:hover{
+			background: #fff;
+			text-decoration: underline;
+		}
+		.hidden{
+			display: none;
+		}
+		
+	</style>
+	<script type="text/javascript" src="../javascript/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.wrap  h1').click(function(){
+				$('.wrap ul').toggleClass('hidden');
+				$(this).toggleClass('background');
+			})
+		})
+	</script>
+
+</head>    
+<body>
+	<div class="wrap">
+		<h1>播放列表...</h1>
+		<ul class="hidden">
+			<li>沉默是金</li>
+			<li>倩女幽魂</li>
+			<li>千千阙歌</li>
+			<li>当我已成往事</li>
+			<li>共同度过</li>
+			<li>左右手</li>
+		</ul>
+	</div>
+</body>
+</html>
