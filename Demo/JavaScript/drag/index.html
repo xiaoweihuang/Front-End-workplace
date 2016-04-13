@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>完美拖拽</title>
+	<style type="text/css">
+	body,h1{
+		margin:0;
+		padding:0;
+	}
+	.container{
+		width:300px;
+		height:150px;
+		border:1px solid #eee;
+		position: absolute;
+		left:200px;
+		top:150px;
+	}
+	.container h1{
+		width:300px;
+		height:30px;
+		border-bottom:1px solid #eee;
+		cursor:move;
+	}
+	.container h1 a{
+		width:150px;
+		height:30px;
+		line-height: 30px;
+		float: right;
+		text-decoration: none;
+		color: #555;
+		font-size: 16px;
+	}
+	.container div{
+		width:280px;
+		height:40px;
+		padding-left: 20px;
+	}
+	.container div strong,.container div span{
+		display: inline-block;
+		height:40px;
+		line-height: 40px;
+		margin-right: 8px;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oContainer = document.getElementById('container');
+		var oH = document.getElementsByTagName('h1')[0];
+		var aSpan = document.getElementsByTagName('span');
+		var bDrag = false;
+		var aPosition = [{left:oContainer.offsetLeft,top:oContainer.offsetTop}];
+		aSpan[1].innerHTML = oContainer.offsetLeft + "px";
+		aSpan[2].innerHTML = oContainer.offsetTop + "px";
+		var oA = document.getElementsByTagName('a')[0];
+		var maxWidth = document.documentElement.clientWidth - oContainer.offsetWidth;
+		var maxHeight = document.documentElement.clientHeight - oContainer.offsetHeight;
+
+		var l , t;
+		function status(){
+			aSpan[0].innerHTML = bDrag;
+			aSpan[1].innerHTML = l + "px";
+			aSpan[2].innerHTML = t + "px";
+		}
+
+		oH.onmousedown = function(event){
+			bDrag = true;
+			var event = event || window.event;
+			var disX = event.clientX - oContainer.offsetLeft;
+			var disY = event.clientY - oContainer.offsetTop;
+			aPosition.push({left:oContainer.offsetLeft,top:oContainer.offsetTop});
+
+			document.onmousemove = function(event){
+				var event = event || window.event;
+				l = event.clientX - disX;
+				t = event.clientY - disY;
+				l < 0 && (l = 0);
+				l > maxWidth && (l = maxWidth);
+				t < 0 && (t = 0);
+				t > maxHeight && (t = maxHeight);
+				/*if (l < 0) {
+					l = 0 ;
+				};
+				if (l > maxWidth) {
+					l = maxWidth;
+				};
+				if (t < 0) {
+					t = 0 ;
+				};
+				if (t > maxHeight) {
+					t = maxHeight;
+				};*/
+				/*aSpan[0].innerHTML = bDrag;
+				aSpan[1].innerHTML = l + "px";
+				aSpan[2].innerHTML = t + "px";*/
+				status();
+				oContainer.style.left = l + 'px';
+			    oContainer.style.top = t + 'px';
+			    aPosition.push({left:l,top:t});
+			    return false;
+				
+			}
+
+			document.onmouseup = function(){
+				bDrag = false;
+				document.onmousemove = null;
+				document.onmouseup = null;
+				/*aSpan[0].innerHTML = bDrag;
+				aSpan[1].innerHTML = oContainer.offsetLeft + "px";
+				aSpan[2].innerHTML = oContainer.offsetTop + "px";*/
+				status();
+			}
+
+			return false;
+
+		}
+
+		oA.onclick = function(){
+			if(aPosition.length == 1){
+				return false;
+			}
+			var timer = setInterval(function(){
+				var oPosition = aPosition.pop();//pop方法返回被删除的元素
+				if(oPosition){
+					oContainer.style.left = oPosition.left + "px";
+				    oContainer.style.top = oPosition.top + "px";
+				    /*aSpan[0].innerHTML = bDrag;
+					aSpan[1].innerHTML = oContainer.offsetLeft + "px";
+					aSpan[2].innerHTML = oContainer.offsetTop + "px";*/
+					status();
+				}else{
+					clearInterval(timer);
+				}
+			},30)
+
+		}
+
+		oA.onmousedown = function (event)
+		{
+			(event || window.event).cancelBubble = true
+		};
+
+
+	}
+	</script>
+
+</head>
+<body>
+	<div class="container" id="container">
+		<h1><a href="javascript:;">点击回放移动路径</a></h1>
+		<div><strong>Drag:</strong><span>false</span></div>
+		<div><strong>offsetTop:</strong><span>0</span></div>
+		<div><strong>offsetLeft:</strong><span>0</span></div>
+	</div>
+</body>
+</html>

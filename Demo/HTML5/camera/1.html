@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>camera api的使用</title>
+	<style type="text/css">
+	body{
+		padding:0;
+		margin:0;
+	}
+	div.container{
+		width:500px;
+		/*height:500px;*/
+		margin:100px auto;
+		border:1px solid #eee;
+		box-shadow: 0 0 1.5em #5d656c;
+		padding:10px;
+	}
+	div.showImage img{
+		width:500px;
+	}
+	</style>
+</head>
+<body>
+<div class="container"> 
+	<div>
+		<h3>选择一张本地图片</h3>
+		<p><input type="file" accept="image/*" id="uploadBtn" /></p>
+	</div>
+	<div class="showImage"> 
+		<img src="" id="showFile" style="display: none">
+	</div>
+	<div id="error"></div>
+</div>
+
+<script type="text/javascript">
+	window.onload = function(){
+		var oUploadBtn = document.querySelector('#uploadBtn');
+		var oShowFile = document.querySelector('#showFile');
+
+		if (oUploadBtn && oShowFile) {
+			// statement
+			oUploadBtn.onchange = function(event){
+				var event = event ||　window.event;
+				var oFiles = event.target.files;
+				var file;
+
+				if (oFiles && oFiles.length > 0) {
+					// statement
+					oShowFile.style.display = 'block'
+					file = oFiles[0];
+					try{
+						var oURL = window.URL || window.webkitURL;
+	                    var newURL = oURL.createObjectURL(file);
+	                    oShowFile.src = newURL;
+					} catch(e) {
+						// statements
+						try {
+	                        // Fallback if createObjectURL is not supported
+	                        var fileReader = new FileReader();
+	                        fileReader.onload = function (event) {
+                            showPicture.src = event.target.result;
+                        	};
+                        	fileReader.readAsDataURL(file);
+	                    } catch (e) {
+	                        // Display error message
+	                        var error = document.querySelector("#error");
+	                        if (error) {
+	                            error.innerHTML = "Neither createObjectURL or FileReader are supported";
+	                        }
+	                    }
+					}
+					
+				}
+
+			}
+		}
+	}
+
+</script>
+</body>
+</html>

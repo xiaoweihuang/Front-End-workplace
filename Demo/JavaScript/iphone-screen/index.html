@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>iphone屏幕解锁</title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+	.container{
+		width:426px;
+		height: 640px;
+		margin: 50px auto;
+		background: url(img/1.jpg) no-repeat left top;
+		position: relative;
+	}
+	.btn{
+		display: block;
+		width: 93px;
+		height:62px;
+		position: absolute;
+		left: 32px;
+		bottom: 32px;
+		background: url(img/btn.jpg) no-repeat left top;
+		cursor: pointer;
+	}
+	</style>
+</head>
+<body>
+<div class="container">
+	<span class="btn"></span>
+</div>
+<script type="text/javascript">
+	window.onload = function(){
+		function getStyle(object,attr){
+			return object.currentStyle?object.currentStyle[attr]:getComputedStyle(object)[attr];
+		}
+
+		function startMove(object,json,fn){
+			clearInterval(object.timer);
+			object.timer = setInterval(function(){
+				var boolStop = true;
+				for(attr in json){
+					if(attr == 'opacity'){
+						var currentstyle = parseInt(parseFloat(getStyle(object,attr))*100);
+					}else{
+						var currentstyle = parseInt(getStyle(object,attr));
+					}
+					var speed = (json[attr]-currentstyle)/10;
+					speed>0? speed=Math.ceil(speed):speed=Math.floor(speed);
+					if(currentstyle != json[attr] ){
+						boolStop = false;
+					}
+					if(attr == 'opacity'){
+						object.style.filter = 'alpha(opacity:'+ currentstyle + speed +')';
+						object.style.opacity = (currentstyle + speed)/100;
+					}else{
+						object.style[attr] = currentstyle + speed + 'px';
+					}
+								
+					}
+							
+				if(boolStop){
+					clearInterval(object.timer);
+					if(fn){
+						fn();
+					}
+				}
+			},30)
+		}
+
+		var oContainer = document.getElementsByTagName('div')[0];
+		var oBtn = document.getElementsByTagName('span')[0];
+		oBtn.onmousedown = function(e){
+			var e = e || event;
+			var disX = e.clientX - oBtn.offsetLeft;
+			var disY = e.clientY - oBtn.offsetTop;
+			var l;
+
+			document.onmousemove = function(e){
+				var e = e || event;
+				l = e.clientX - disX;
+
+				l < 32 && (l = 32);
+				l > 302 && (l = 302);
+				
+				oBtn.style.left = l + "px";
+			}
+
+			document.onmouseup = function(){
+				document.onmousemove = document.onmouseup = null;
+				if (l < 167) {
+					startMove(oBtn,{left:32});
+				}
+				if (l>=167) {
+					startMove(oBtn,{left:302},function(){
+						oContainer.style.background = "url(img/2.jpg) no-repeat left top";
+						oBtn.style.display = 'none';
+					});
+				}
+				if (l == 302) {
+					oContainer.style.background = "url(img/2.jpg) no-repeat left top";
+					oBtn.style.display = 'none';
+				}
+			}
+
+
+
+		}
+
+	}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>拖拽和复制</title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+	body{
+		background: #555;
+	}
+	.container{
+		width: 100px;
+		height: 100px;
+		border:1px solid #fff;
+		position: absolute;
+		background: #333;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oContainer = document.getElementsByTagName('div')[0];
+			var maxWidth = document.documentElement.clientWidth - oContainer.offsetWidth;
+			var maxHeight = document.documentElement.clientHeight - oContainer.offsetHeight;
+
+			oContainer.onmousedown = function(e) {
+				var e = e || event;
+				var disX = e.clientX - oContainer.offsetLeft;
+				var disY = e.clientY - oContainer.offsetTop;
+				var l,t;
+				var oContainerCopy = document.createElement('div');
+				document.body.appendChild(oContainerCopy);
+				oContainerCopy.className = 'container';
+				oContainerCopy.style.background = '#444';
+				oContainerCopy.style.display = 'none';
+
+				document.onmousemove = function(e) {
+					oContainerCopy.style.display = 'block';
+					var e = e || event;
+					l = e.clientX - disX;
+					t = e.clientY - disY;
+
+					l < 0 && (l = 0);
+					l > maxWidth && (l = maxWidth);
+					t < 0 && (t = 0);
+					t > maxHeight && (t = maxHeight);
+
+					oContainerCopy.style.left = l + "px";
+					oContainerCopy.style.top = t  + "px";
+				}
+
+				document.onmouseup = function(){
+					document.onmousemove = document.onmouseup = null;
+					document.body.removeChild(oContainerCopy);
+					oContainer.style.left = l + "px";
+					oContainer.style.top = t  + "px";
+				}
+
+			}
+		}
+	</script>
+</head>
+<body>
+<div class="container"></div>
+</body>
+</html>

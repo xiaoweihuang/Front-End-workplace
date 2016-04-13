@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>可自由改变大小的弹窗</title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+	body{
+		background: url(img/bg.jpg);
+	}
+	.container{
+		width:320px;
+		height:150px;
+		background: #eee;
+		border:1px solid #555;
+		position: relative;
+	}
+	.container .title{
+		position: relative;
+		height: 32px;
+		border-bottom: 1px solid #666;
+	}
+	.container .title h3{
+		margin:0;
+		padding: 0 10px;
+		display: block;
+		height: 32px;
+		line-height: 32px;
+		font-size: 14px;
+		color: #666;
+		cursor: move;
+	}
+	.container .title div{
+		position: absolute;
+		right:6px;
+		top: 6px;
+	}
+	.container .title div a{
+		display: inline-block;
+		width: 22px;
+		height:19px;
+		float: left;
+	}
+	.container .title .min{
+		background: url(img/tool.png) no-repeat -29px 0;
+	}
+	.container .title .min:hover{
+		background: url(img/tool.png) no-repeat -29px -29px;
+	}
+	.container .title .max{
+        background: url(img/tool.png) no-repeat -58px 0;
+	}
+	.container .title .max:hover{
+        background: url(img/tool.png) no-repeat -58px -29px;
+	}
+	.container .title .revert{
+        background: url(img/tool.png) no-repeat -58px 0;
+        display: none;
+	}
+	.container .title .revert:hover{
+        background: url(img/tool.png) no-repeat -58px -29px;
+        display: none;
+	}
+	.container .title .close{
+        background: url(img/tool.png) no-repeat -87px 0;
+	}
+	.container .title .close:hover{
+        background: url(img/tool.png) no-repeat -87px -29px;
+	}
+	.container .changeSize{
+		display: block;
+		position: absolute;
+		right: -6px;
+		bottom: -6px;
+		width: 20px;
+		height: 20px;
+		background: url(img/resize.png) no-repeat left top ;
+		cursor: nw-resize;
+	}
+	.open{
+		position: absolute;
+		left: 480px;
+		top:56px;
+		display: block;
+		width: 22px;
+		height: 19px;
+		background: url(img/tool.png) no-repeat 0 0;
+		display: none;
+	}
+	.containerMax{
+		background: #eee none repeat scroll 0 0;
+        border: 1px solid #555;
+		position: absolute;
+		left: 0 !important;
+		top: 0 !important;
+		width: 100%;
+		height: 100%;
+	}
+	</style>
+</head>
+<body>
+<div class="container" id="container">
+	<div class="title">
+		<h3>这是一个可以拖动和缩放的弹窗</h3>
+		<div>
+			<a href="#" class="min" id="min" title="最小化"></a>
+			<a href="#" class="max" id="max" title="最大化"></a>
+			<a href="#" class="revert" id="revert" title="还原"></a>
+			<a href="#" class="close" id="close" title="关闭"></a>
+		</div> 
+	</div>
+	<div class="content"></div>
+	<span class="changeSize" id="changeSize"></span>
+</div>
+<a href="#" class="open" id="open"></a>
+<script type="text/javascript">
+	window.onload = function() {
+		var oContainer = document.getElementById('container');
+		var oH3 = document.getElementsByTagName('h3')[0];
+		var oChangeSize = document.getElementById('changeSize');
+		var oMin = document.getElementById('min');
+		var oMax = document.getElementById('max');
+		var oRevert = document.getElementById('revert');
+		var oClose = document.getElementById('close');
+		var oOpen = document.getElementById('open');
+		var l,t;
+
+		oH3.onmousedown = function(e) {
+			var e = e || event;
+			var disX = e.clientX - oContainer.offsetLeft;
+			var disY = e.clientY - oContainer.offsetTop;
+			var maxWidth = document.documentElement.clientWidth - oContainer.offsetWidth;
+			var maxHeight = document.documentElement.clientHeight - oContainer.offsetHeight;
+
+			console.log(oH3.offsetLeft);
+
+			document.onmousemove = function(e) {
+				var e = e || event;
+				l = e.clientX - disX;
+				t = e.clientY - disY;
+
+				l < 0 && (l = 0);
+				l > maxWidth && (l = maxWidth);
+				t < 0 && (t = 0);
+				t > maxHeight && (t = maxHeight);
+
+				oContainer.style.left = l + "px";
+				oContainer.style.top = t + "px";
+
+			}
+
+			document.onmouseup = function() {
+				document.onmousemove = document.onmouseup = null;
+				this.releaseCapture && this.releaseCapture()
+			}
+
+			this.setCapture && this.setCapture();
+		    return false
+		}
+
+		oMin.onclick = function() {
+			oContainer.style.display = 'none';
+			oOpen.style.display = 'block';
+		}
+
+		oOpen.onclick = function() {
+			oContainer.style.display = 'block';
+			oOpen.style.display = 'none';
+		}
+
+		oMax.onclick = function() {
+			oContainer.className = 'container containerMax';
+			this.style.display = 'none';
+			oRevert.style.display = 'block';
+		}
+
+		oRevert.onclick = function() {
+			oContainer.className = 'container';
+			this.style.display = 'none';
+			oMax.style.display = 'block';
+		}
+
+		oClose.onclick = function() {
+			oContainer.style.display = 'none';
+			oOpen.style.display = 'block';
+		}
+
+		//阻止冒泡
+		oMin.onmousedown = oMax.onmousedown = oClose.onmousedown = function (event)
+		{
+			this.onfocus = function () {this.blur()};
+			(event || window.event).cancelBubble = true	
+		};
+
+		oChangeSize.onmousedown = function(e) {
+			var e = e || event;
+			var startX = e.clientX;
+			var startY = e.clientY;
+			var beginWidth = oContainer.offsetWidth;
+			var beginHeight = oContainer.offsetHeight;
+
+			document.onmousemove = function(e) {
+				var e = e || event;
+				var endX = e.clientX;
+				var endY = e.clientY;
+
+				var l = endX - startX;
+				var t = endY - startY;
+
+				if ( (beginWidth + l) < 320) {
+					oContainer.style.width =  "320px";
+				}else{
+					oContainer.style.width = beginWidth + l + "px";
+				};
+				if ( (beginHeight + t) < 150) { 
+					oContainer.style.height = "150px"; 
+				}else {
+					oContainer.style.height = beginHeight + t + "px";
+				};
+
+			}
+
+			document.onmouseup = function() {
+				document.onmousemove = document.onmouseup = null;
+				this.releaseCapture && this.releaseCapture()
+			}
+
+			this.setCapture && this.setCapture();
+			return false;
+
+		}
+
+
+	}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

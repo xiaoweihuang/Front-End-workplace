@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>sea.js test</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<div id="container">
+	<img src="../static/img/h.png" alt="H" width="44px" height="44px">
+	<img src="../static/img/e1.png" alt="e" width="44px" height="44px">
+	<img src="../static/img/l1.png" alt="l" width="44px" height="44px">
+	<img src="../static/img/l2.png" alt="l" width="44px" height="44px">
+	<img src="../static/img/o.png" alt="o" width="44px" height="44px">
+	<img src="../static/img/dou.png" alt="," width="44px" height="44px">
+	<img src="../static/img/s1.png" alt="s" width="44px" height="44px">
+	<img src="../static/img/e2.png" alt="e" width="44px" height="44px">
+	<img src="../static/img/a.png" alt="a" width="44px" height="44px">
+	<img src="../static/img/j.png" alt="j" width="44px" height="44px">
+	<img src="../static/img/s2.png" alt="s" width="44px" height="44px">
+</div>
+<script src="../sea-modules/seajs/2.2.0/sea.js"></script>
+<script>
+		seajs.config({
+			base:"../sea-modules/",
+			alias:{
+				"jquery":"jquery/1.10.1/jquery.js"
+			},
+		});
+		seajs.use("../static/js/main");
+
+</script>
+</body>
+</html>
